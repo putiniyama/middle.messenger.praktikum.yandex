@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "parcel src/pages/index.hbs --no-cache",
-    "start": "parcel src/pages/index.hbs && node ./server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "parcel build src/pages/index.hbs && node ./server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "parcel build index.html"
   },
   "engines": {
     "node": ">=12.0.0"
