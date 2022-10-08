@@ -1,3 +1,5 @@
+/* stylelint-disable indentation */
+/* stylelint-disable-next-line selector-class-pattern */
 .general {
 	display: flex;
 }

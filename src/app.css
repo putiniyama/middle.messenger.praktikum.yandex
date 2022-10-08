@@ -1,3 +1,5 @@
+/* stylelint-disable indentation */
+/* stylelint-disable-next-line selector-class-pattern */
 @import './pages/login/login.css';
 @import './pages/chats/chats.css';
 @import './pages/profile/profile.css';

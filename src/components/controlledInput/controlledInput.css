@@ -1,3 +1,5 @@
+/* stylelint-disable indentation */
+/* stylelint-disable-next-line selector-class-pattern */
 .controlled-input {
 	padding: 0;
 	max-width: 300px;
