@@ -1,7 +1,11 @@
-/* stylelint-disable indentation */
-/* stylelint-disable-next-line selector-class-pattern */
 .general {
 	display: flex;
+}
+
+.general a {
+	text-decoration: none;
+	display: flex;
+	justify-content: end;
 }
 
 .general__chats {
@@ -9,12 +13,6 @@
 	height: 95vh;
 	display: flex;
 	flex-direction: column;
-}
-
-.general a {
-	text-decoration: none;
-	display: flex;
-	justify-content: end;
 }
 
 .general__profile {

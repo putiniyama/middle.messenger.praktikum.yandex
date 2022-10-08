@@ -6,9 +6,7 @@
 	justify-content: center;
 	height: 100vh;
 }
-.authorization a {
-	text-decoration: none;
-}
+
 .authorization__wrapper {
 	display: flex;
 	width: 300px;
@@ -31,4 +29,8 @@
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+}
+
+.authorization a {
+	text-decoration: none;
 }
