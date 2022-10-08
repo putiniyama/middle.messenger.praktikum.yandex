@@ -1,27 +1,38 @@
 {
-  "name": "sprint_1",
-  "version": "1.0.0",
-  "description": "",
-  "scripts": {
-    "dev": "parcel src/pages/index.hbs --no-cache",
-    "start": "parcel build src/pages/index.hbs && node ./server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "engines": {
-    "node": ">=12.0.0"
-  },
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "@anikin/parcel-transformer-handlebars": "^1.0.9",
-    "parcel": "^2.7.0",
-    "postcss": "^8.4.16",
-    "postcss-import": "^15.0.0",
-    "postcss-nested": "^5.0.6"
-  },
-  "dependencies": {
-    "@parcel/transformer-sass": "^2.7.0",
-    "express": "^4.18.1",
-    "sass": "^1.54.9"
-  }
+	"name": "sprint-1-handlebars-components",
+	"version": "1.0.0",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "parcel src/index.html --no-cache",
+		"build": "parcel build src/index.html --no-cache --public-url ./"
+	},
+	"alias": {
+		"core": "./src/core",
+		"components": "./src/components",
+		"helpers": "./src/helpers",
+		"pages": "./src/pages"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "MIT",
+	"devDependencies": {
+		"@anikin/parcel-transformer-handlebars": "1.0.9",
+		"@types/node": "18.7.23",
+		"parcel": "2.7.0",
+		"parcel-plugin-handlebars-precompile": "1.0.2",
+		"postcss": "8.4.17",
+		"postcss-import": "12.0.1",
+		"postcss-nested": "5.0.6",
+		"sass": "^1.55.0",
+		"stylelint": "^14.13.0",
+		"stylelint-config-standard": "^28.0.0",
+		"stylelint-order": "^5.0.0",
+		"typescript": "4.8.4"
+	},
+	"dependencies": {
+		"babel-core": "6.26.3",
+		"eslint-config-airbnb": "^19.0.4",
+		"nanoid": "4.0.0"
+	},
+	"description": ""
 }

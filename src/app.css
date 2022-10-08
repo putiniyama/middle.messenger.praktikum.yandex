@@ -1,0 +1,9 @@
+@import './pages/login/login.css';
+@import './pages/chats/chats.css';
+@import './pages/profile/profile.css';
+@import './pages/signup/signup.css';
+@import './components/button/button.css';
+
+* {
+	box-sizing: border-box;
+}
