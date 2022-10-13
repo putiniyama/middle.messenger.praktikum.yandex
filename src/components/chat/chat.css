@@ -1,41 +1,45 @@
-.general__item {
-	width: 270px;
-	height: 70px;
-	display: flex;
-	border-bottom: 1px solid #000000;
-	cursor: pointer;
-}
+@import "../../variables.css";
 
-.general__item:hover {
-	background: #dddddd;
-}
+.general {
+  &__item {
+    display: flex;
+    width: 270px;
+    height: 70px;
+    border-bottom: 1px solid #000;
+    cursor: pointer;
 
-.general__item-avatar {
-	width: 40px;
-	height: 40px;
-	background: #d9d9d9;
-	border-radius: 50%;
-	overflow: hidden;
-}
+    &:hover {
+      background: var(--backitemiolor-hover);
+    }
 
-.general__item-info {
-	width: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: flex-start;
-	flex-direction: column;
-	gap: 3px;
-}
+    &-avatar {
+      overflow: hidden;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #d9d9d9;
+    }
 
-.general__item-photo {
-	padding: 15px;
-}
+    &-info {
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 3px;
+    }
 
-.general__item-nick {
-	margin: 0;
-	font-weight: 500;
-}
+    &-photo {
+      padding: 15px;
+    }
 
-.general__item-text {
-	margin: 0;
+    &-nick {
+      margin: 0;
+      font-weight: 500;
+    }
+
+    &-text {
+      margin: 0;
+    }
+  }
 }

@@ -24,7 +24,6 @@ export class Input extends Block {
 	}
 
 	protected render(): string {
-		// language=hbs
 		return `
 			<input name="{{name}}" class="{{class}}" type="{{type}}" placeholder="{{placeholder}}" value="" ref="inRef" />
 		`

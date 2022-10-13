@@ -4,7 +4,9 @@
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"build": "parcel src/index.html --no-cache",
-		"start": "parcel build src/index.html --no-cache --public-url ./ && node ./server.js"
+		"start": "parcel build src/index.html --no-cache --public-url ./ && node ./server.js",
+		"eslint": "eslint src/**/*.ts --fix",
+		"stylelint": "stylelint src/**/*.css --fix"
 	},
 	"alias": {
 		"core": "./src/core",
@@ -18,24 +20,27 @@
 	"devDependencies": {
 		"@anikin/parcel-transformer-handlebars": "1.0.9",
 		"@types/node": "18.7.23",
-		"eslint": "8.24.0",
-		"eslint-config-airbnb": "19.0.4",
-		"eslint-config-prettier": "8.5.0",
-		"eslint-plugin-prettier": "4.2.1",
+		"@typescript-eslint/eslint-plugin": "^5.39.0",
+		"css": "^3.0.0",
+		"eslint": "^8.25.0",
+		"eslint-config-airbnb": "^19.0.4",
 		"express": "^4.18.2",
 		"parcel": "2.7.0",
 		"parcel-plugin-handlebars-precompile": "1.0.2",
-		"postcss": "8.4.17",
-		"postcss-import": "15.0.0",
-		"postcss-nested": "6.0.0",
+		"postcss": "^8.4.17",
+		"postcss-css-variables": "^0.18.0",
+		"postcss-import": "^15.0.0",
+		"postcss-nested": "^6.0.0",
 		"stylelint": "^14.13.0",
-		"stylelint-config-recommended": "^9.0.0",
+		"stylelint-config-idiomatic-order": "^9.0.0",
+		"stylelint-config-standard": "^28.0.0",
+		"stylelint-order": "^5.0.0",
 		"typescript": "4.8.4"
 	},
 	"dependencies": {
 		"babel-core": "6.26.3",
-		"eslint-config-airbnb": "^19.0.4",
-		"nanoid": "4.0.0"
+		"nanoid": "4.0.0",
+		"typescript-eslint": "^0.0.1-alpha.0"
 	},
 	"description": ""
 }

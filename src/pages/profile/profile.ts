@@ -1,8 +1,6 @@
-import input from 'components/input'
 import { passwordChangePage } from '../../index'
 import Block from '../../core/Block'
-import { validateForm, ValidateType } from '../../helpers/validateForm'
-import login from 'pages/login'
+import { validAllForm } from 'helpers/validAllForm'
 
 export class ProfilePage extends Block {
 	constructor() {
@@ -13,167 +11,27 @@ export class ProfilePage extends Block {
 			loginValue: '',
 			passwordValue: '',
 			classItem: 'input',
-			onInput: e => {
-				const inputEl = e.target as HTMLInputElement
-				if (
-					this.element?.querySelector('input[name="name_view"]') === inputEl
-				) {
-					const errorMessage = validateForm([
-						{ type: ValidateType.NameView, value: inputEl.value },
-						//{ type: ValidateType.Password, value: inputEl.value },
-					])
-					this.refs.nameViewInputRef.refs.errorRef.setProps({
-						text: errorMessage,
-					})
-				}
-				if (this.element?.querySelector('input[name="password"]') === inputEl) {
-					const errorMessagePass = validateForm([
-						{ type: ValidateType.Password, value: inputEl.value },
-						//{ type: ValidateType.Password, value: inputEl.value },
-					])
-					this.refs.passwordInputRef.refs.errorRef.setProps({
-						text: errorMessagePass,
-					})
-				}
-				if (
-					this.element?.querySelector('input[name="first_name"]') === inputEl
-				) {
-					const errorMessageFirstName = validateForm([
-						{ type: ValidateType.FirstName, value: inputEl.value },
-						//{ type: ValidateType.Password, value: inputEl.value },
-					])
-					this.refs.firstNameInputRef.refs.errorRef.setProps({
-						text: errorMessageFirstName,
-					})
-				}
-				if (
-					this.element?.querySelector('input[name="second_name"]') === inputEl
-				) {
-					const errorMessageSecondName = validateForm([
-						{ type: ValidateType.SecondName, value: inputEl.value },
-						//{ type: ValidateType.Password, value: inputEl.value },
-					])
-					this.refs.secondNameInputRef.refs.errorRef.setProps({
-						text: errorMessageSecondName,
-					})
-				}
-				if (this.element?.querySelector('input[name="email"]') === inputEl) {
-					const errorMessageEmail = validateForm([
-						{ type: ValidateType.Email, value: inputEl.value },
-						//{ type: ValidateType.Password, value: inputEl.value },
-					])
-					this.refs.emailInputRef.refs.errorRef.setProps({
-						text: errorMessageEmail,
-					})
-				}
-				if (this.element?.querySelector('input[name="phone"]') === inputEl) {
-					const errorMessagePhone = validateForm([
-						{ type: ValidateType.Phone, value: inputEl.value },
-						//{ type: ValidateType.Password, value: inputEl.value },
-					])
-					this.refs.phoneInputRef.refs.errorRef.setProps({
-						text: errorMessagePhone,
-					})
-				}
-				if (this.element?.querySelector('input[name="login"]') === inputEl) {
-					const errorMessage = validateForm([
-						{ type: ValidateType.Login, value: inputEl.value },
-						//{ type: ValidateType.Password, value: inputEl.value },
-					])
-					this.refs.loginInputRef.refs.errorRef.setProps({ text: errorMessage })
-				}
-			},
-			// onBlur: () => console.log('blur'),
-			onFocus: () => {},
 			onSubmit: () => {
-				const firstNameEl = this.element?.querySelector(
-					'input[name="first_name"]'
-				) as HTMLInputElement
-				const secondNameEl = this.element?.querySelector(
-					'input[name="second_name"]'
-				) as HTMLInputElement
-				const loginEl = this.element?.querySelector(
-					'input[name="login"]'
-				) as HTMLInputElement
-				const changePassBtn = this.element?.querySelector(
-					'[name="password-change"]'
-				) as HTMLInputElement
-				const emailEl = this.element?.querySelector(
-					'input[name="email"]'
-				) as HTMLInputElement
-				const phoneEl = this.element?.querySelector(
-					'input[name="phone"]'
-				) as HTMLInputElement
-				const changeDataBtn = this.element?.querySelector(
-					'[name="data-change"]'
-				)
-				const nameViewEl = this.element?.querySelector(
-					'input[name="name_view"]'
-				) as HTMLInputElement
-				// const inputs = this.element?.querySelectorAll('.profile__items input')
-				// inputs?.forEach(item => {
-				// 	item.disabled = !item.disabled
-				// })
-				const errorMessageFirstName = validateForm([
-					{ type: ValidateType.FirstName, value: firstNameEl.value },
-				])
-				const errorMessageSecondName = validateForm([
-					{ type: ValidateType.SecondName, value: secondNameEl.value },
-				])
-				const errorMessageEmail = validateForm([
-					{ type: ValidateType.Email, value: emailEl.value },
-				])
-				const errorMessagePhone = validateForm([
-					{ type: ValidateType.Phone, value: phoneEl.value },
-				])
-				const errorMessageLogin = validateForm([
-					{ type: ValidateType.Login, value: loginEl.value },
-				])
-				const errorMessageNameView = validateForm([
-					{ type: ValidateType.NameView, value: nameViewEl.value },
-				])
+				event?.preventDefault()
+				const inputs = document.querySelectorAll('input')
+				let values = {}
+				let res: {}
+				let isValid = validAllForm(inputs, this)
 
-				if (changeDataBtn!.textContent === 'Изменить данные') {
-					changeDataBtn!.textContent = 'Сохранить данные'
-					changePassBtn.style.display = 'none'
+				if (this.refs.buttonRef.props.text === 'Изменить данные') {
+					this.refs.buttonRef.setProps({ text: 'Сохранить данные' })
+					this.refs.buttonPassRef.element.style.display = 'none'
 				} else {
-					if (
-						errorMessageNameView ||
-						errorMessageLogin ||
-						errorMessageFirstName ||
-						errorMessageSecondName ||
-						errorMessageEmail ||
-						errorMessagePhone
-					) {
-						this.refs.firstNameInputRef.refs.errorRef.setProps({
-							text: errorMessageFirstName,
+					if (isValid) {
+						inputs.forEach(item => {
+							let inputNameItem = <string>item.getAttribute('name')
+							res = {
+								[inputNameItem]: item.value,
+							}
+							Object.assign(values, res)
 						})
-						this.refs.secondNameInputRef.refs.errorRef.setProps({
-							text: errorMessageSecondName,
-						})
-						this.refs.loginInputRef.refs.errorRef.setProps({
-							text: errorMessageLogin,
-						})
-						this.refs.emailInputRef.refs.errorRef.setProps({
-							text: errorMessageEmail,
-						})
-						this.refs.phoneInputRef.refs.errorRef.setProps({
-							text: errorMessagePhone,
-						})
-						this.refs.nameViewInputRef.refs.errorRef.setProps({
-							text: errorMessageNameView,
-						})
-					} else {
-						changeDataBtn!.textContent = 'Изменить данные'
-						changePassBtn!.style!.display = 'block'
-						console.log({
-							first_name: firstNameEl.value,
-							second_name: secondNameEl.value,
-							email: emailEl.value,
-							phone: phoneEl.value,
-							login: loginEl.value,
-							name_view: nameViewEl.value,
-						})
+						console.log(values)
+						this.refs.buttonPassRef.element.style.display = 'block'
 					}
 				}
 			},
@@ -184,7 +42,6 @@ export class ProfilePage extends Block {
 	}
 
 	render() {
-		// language=hbs
 		return `
     <div class="profile">
     <div class="profile__wrapper">
@@ -258,8 +115,8 @@ export class ProfilePage extends Block {
 
             </div>
             <div class="profile__btns">
-                {{{Button name="data-change" class="sign-btn" text="Изменить данные" onClick=onSubmit}}}
-								{{{Button name="password-change" class="sign-btn" text="Изменить пароль" onClick=onRouter}}}
+                {{{Button ref="buttonRef" name="data-change" class="sign-btn" text="Изменить данные" onClick=onSubmit}}}
+								{{{Button ref="buttonPassRef" name="password-change" class="sign-btn" text="Изменить пароль" onClick=onRouter}}}
             </div>
         </div>
 

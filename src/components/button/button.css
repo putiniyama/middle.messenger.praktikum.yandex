@@ -1,17 +1,19 @@
-.sign-btn {
-	width: 180px;
-	height: 35px;
-	background-color: #d9d9d9;
-	font-size: 16px;
-	color: #0000;
-	margin-top: 10px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	cursor: pointer;
-	border: none;
-}
+@import "../../variables.css";
 
-.sign-btn-message {
-	margin: 0;
+.sign-btn {
+  display: flex;
+  width: 180px;
+  height: 35px;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  margin-top: 10px;
+  background-color: var(--backcolorbtn);
+  color: var(--fontcolor);
+  cursor: pointer;
+  font-size: 16px;
+
+  &-message {
+    margin: 0;
+  }
 }

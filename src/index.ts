@@ -1,7 +1,8 @@
-require('babel-core/register')
-import { Block, renderDOM, registerComponent } from './core'
+import { renderDOM, registerComponent } from './core'
 
 import './app.css'
+
+import HTTPTransport from './api'
 
 import Button from './components/button'
 import Chat from './components/chat'
@@ -12,33 +13,38 @@ import { LoginPage } from 'pages/login/login'
 import { ProfilePage } from 'pages/profile/profile'
 import { SignUpPage } from 'pages/signup/signup'
 import { PasswordChangePage } from 'pages/password-change/password-change'
-// import { OnboardingPage } from './pages/onboarding/onboarding'
 import { ChatsPage } from './pages/chats/chats'
+import { title } from 'process'
+
+require('babel-core/register')
 
 registerComponent(Button)
 registerComponent(Chat)
 registerComponent(Input)
 registerComponent(ErrorComponent)
 registerComponent(ControlledInput)
-// registerComponent(Layout)
+
+const root = document.querySelector('#app') as HTMLDivElement
 
 document.addEventListener('DOMContentLoaded', () => {
-	renderDOM(new LoginPage())
-	//renderDOM(new ProfilePage())
+	renderDOM(new LoginPage(), root)
+	// new HTTPTransport().get('https://localhost:1234', {
+	// 	title: ['asd', '4uiutr'],
+	// })
 })
 
 export function signUpPage() {
-	renderDOM(new SignUpPage())
+	renderDOM(new SignUpPage(), root)
 }
 
 export function chatsPage() {
-	renderDOM(new ChatsPage())
+	renderDOM(new ChatsPage(), root)
 }
 
 export function profilePage() {
-	renderDOM(new ProfilePage())
+	renderDOM(new ProfilePage(), root)
 }
 
 export function passwordChangePage() {
-	renderDOM(new PasswordChangePage())
+	renderDOM(new PasswordChangePage(), root)
 }

@@ -1,14 +1,15 @@
-enum METHOD {
-	GET = 'GET',
-	POST = 'POST',
-	PUT = 'PUT',
-	PATCH = 'PATCH',
-	DELETE = 'DELETE',
-}
+const METHODS = {
+	GET: 'GET',
+	POST: 'POST',
+	PUT: 'PUT',
+	PATCH: 'PATCH',
+	DELETE: 'DELETE',
+} as const
 
 type Options = {
-	method: METHOD
+	method: typeof METHODS[keyof typeof METHODS]
 	data?: any
+	title?: string[]
 }
 
 // Тип Omit принимает два аргумента: первый — тип, второй — строка
@@ -17,20 +18,42 @@ type OptionsWithoutMethod = Omit<Options, 'method'>
 // Этот тип эквивалентен следующему:
 // type OptionsWithoutMethod = { data?: any };
 
-class HTTPTransport {
+export default class HTTPTransport {
 	get(
 		url: string,
 		options: OptionsWithoutMethod = {}
 	): Promise<XMLHttpRequest> {
-		return this.request(url, { ...options, method: METHOD.GET })
+		return this.request(url, {
+			...options,
+			method: METHODS.GET,
+		})
 	}
 
-	request(
+	put(
 		url: string,
-		options: Options = { method: METHOD.GET }
+		options: OptionsWithoutMethod = {}
 	): Promise<XMLHttpRequest> {
-		const { method, data } = options
+		return this.request(url, { ...options, method: METHODS.PUT })
+	}
 
+	post(
+		url: string,
+		options: OptionsWithoutMethod = {}
+	): Promise<XMLHttpRequest> {
+		return this.request(url, { ...options, method: METHODS.POST })
+	}
+
+	delete(
+		url: string,
+		options: OptionsWithoutMethod = {}
+	): Promise<XMLHttpRequest> {
+		return this.request(url, { ...options, method: METHODS.DELETE })
+	}
+
+	request(url: string, options: Options): Promise<XMLHttpRequest> {
+		const { method, data, title } = options
+
+		console.log(method, title)
 		return new Promise((resolve, reject) => {
 			const xhr = new XMLHttpRequest()
 			xhr.open(method, url)
@@ -43,7 +66,11 @@ class HTTPTransport {
 			xhr.onerror = reject
 			xhr.ontimeout = reject
 
-			if (method === METHOD.GET || !data) {
+			if (
+				method ===
+					(METHODS.GET || METHODS.POST || METHODS.DELETE || METHODS.PUT) ||
+				!data
+			) {
 				xhr.send()
 			} else {
 				xhr.send(data)
@@ -51,5 +78,3 @@ class HTTPTransport {
 		})
 	}
 }
-
-new HTTPTransport().get('https://chats')

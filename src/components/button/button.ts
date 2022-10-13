@@ -5,7 +5,7 @@ import './button.css'
 
 interface ButtonProps {
 	text: string
-	class: string
+	class: string[]
 	onClick: () => void
 }
 
@@ -21,10 +21,3 @@ export class Button extends Block {
 		`
 	}
 }
-
-/* 
-<div class="button">
-        <button class="button__button" type ="button">{{text}}</button> 
-      </div>
-
-*/

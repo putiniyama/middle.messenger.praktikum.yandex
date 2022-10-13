@@ -3,6 +3,8 @@ import chat from 'components/chat'
 import { profilePage } from '../../index'
 import Block from '../../core/Block'
 import { validateForm, ValidateType } from '../../helpers/validateForm'
+import { refErrors } from 'helpers/refErrors'
+import { onEvents } from 'helpers/events'
 
 export class ChatsPage extends Block {
 	constructor() {
@@ -10,30 +12,32 @@ export class ChatsPage extends Block {
 
 		this.setProps({
 			error: '',
-			onInput: e => {},
-			onBlur: () => console.log('blur'),
-			onFocus: () => {},
 			onSubmit: () => {
-				const messageEl = this.element?.querySelector(
-					'input[name="message"]'
-				) as HTMLInputElement
+				event?.preventDefault()
+				const inputs = document.querySelectorAll('input')
+				let errors: null[] = []
+				let values = {}
+				let res: {}
 
-				const errorMessage = validateForm([
-					{ type: ValidateType.Messsage, value: messageEl.value },
-				])
+				for (let i = 0; i < inputs.length; i++) {
+					const inputEl = <HTMLInputElement>inputs[i]
+					const inputName = inputEl.getAttribute('name') as string
+					const error = onEvents(inputEl, inputName)
+					refErrors(inputName, this, error)
+					if (!error) {
+						errors.push(null)
+					}
+				}
 
-				if (errorMessage) {
-					this.refs.valueRef.refs.errorRef.setProps({
-						text: errorMessage,
+				if (errors.length == inputs.length) {
+					inputs.forEach(item => {
+						let inputNameItem = <string>item.getAttribute('name')
+						res = {
+							[inputNameItem]: item.value,
+						}
+						Object.assign(values, res)
 					})
-				} else {
-					this.refs.valueRef.refs.errorRef.setProps({
-						text: '',
-					})
-					console.log({
-						message: messageEl.value,
-					})
-					messageEl.value = ''
+					console.log(values)
 				}
 			},
 			onRouter: () => {
@@ -43,7 +47,6 @@ export class ChatsPage extends Block {
 	}
 
 	render() {
-		// language=hbs
 		return `
 			<div class="general">
 					<div class="general__chats">
@@ -84,6 +87,7 @@ export class ChatsPage extends Block {
 							</div>
 							<div class="general__send">
 							{{{ControlledInput 
+								
 								class-controled="controlled-input controlled-input-message"
 								name="message"
 								class="general__send-message"
@@ -92,7 +96,7 @@ export class ChatsPage extends Block {
 								onFocus=onFocus
 								onInput=onInput
 								onBlur=onBlur
-								ref="valueRef"
+								ref="messageInputRef"
 							}}}
 							{{#if error}}{{error}}{{/if}}
 							{{{Button class="sign-btn sign-btn-message" text="Отправить" onClick=onSubmit}}}
