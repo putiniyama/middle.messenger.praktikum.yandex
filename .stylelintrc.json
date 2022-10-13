@@ -1,5 +1,5 @@
 {
-	"extends": "stylelint-config-idiomatic-order",
+	"extends": "stylelint-config-standard",
 	"rules": {
 		"selector-class-pattern": null
 	}
