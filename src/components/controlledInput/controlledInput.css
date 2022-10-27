@@ -1,0 +1,11 @@
+.controlled-input {
+  width: 220px;
+  max-width: 300px;
+  padding: 0;
+}
+
+.controlled-input-message {
+  width: 100%;
+  max-width: 100%;
+  padding-right: 10px;
+}

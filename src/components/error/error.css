@@ -1,0 +1,9 @@
+@import "../../variables.css";
+
+.error {
+  width: 90%;
+  height: 12px;
+  color: var(--errorcolor);
+  font-size: 9px;
+  text-align: center;
+}
