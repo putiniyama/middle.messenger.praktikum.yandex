@@ -13,10 +13,7 @@ export const authAPI = {
 	login: (data: LoginRequestData) =>
 		request.post<LoginResponseData>('auth/signin', data),
 
-	me: () => {
-		const www = new HTTPTransport()
-		return www.get<UserDTO | APIError>('auth/user')
-	},
+	me: () => new HTTPTransport().get<UserDTO | APIError>('auth/user'),
 
 	logout: () => request.post('auth/logout'),
 }

@@ -15,7 +15,7 @@ export async function initApp(dispatch: Dispatch<AppState>) {
 			return
 		}
 
-		dispatch({ user: transformUser(response as unknown as UserDTO) })
+		dispatch({ user: transformUser(response as UserDTO) })
 	} catch (err) {
 		console.error(err)
 	} finally {
