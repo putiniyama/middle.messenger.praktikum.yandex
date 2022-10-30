@@ -61,7 +61,7 @@ export default class HTTPTransport {
 			xhr.open(method, url)
 			xhr.onload = function () {
 				resolve(xhr.response)
-				console.log(xhr.response)
+				//console.log(xhr.response)
 			}
 
 			xhr.onabort = reject

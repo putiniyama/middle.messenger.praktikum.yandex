@@ -34,7 +34,7 @@ type ChahgeProfileRequestData = {
 type LoginResponseData = {} | APIError
 type SignupResponseData = {} | APIError
 type ChahgeProfileResponseData = {} | APIError
-type ChahgePasswordResponseData = {} | APIError
+type ChahgePasswordResponseData = [] | APIError
 
 export const authAPI = {
 	login: (data: LoginRequestData) =>
@@ -64,4 +64,6 @@ export const authAPI = {
 			}
 		)
 	},
+
+	chats: () => new HTTPTransport().get<Chats>('/chats'),
 }

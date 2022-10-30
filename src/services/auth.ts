@@ -31,6 +31,23 @@ type ChahgeProfile = {
 	phone: string
 }
 
+export const chats = async (dispatch: Dispatch<AppState>) => {
+	const responseChats = await authAPI.chats()
+	if (apiHasError(responseChats)) {
+		dispatch({ isLoading: false, loginFormError: responseChats.reason })
+		return
+	}
+
+	dispatch({ isLoading: false, loginFormError: null })
+
+	if (apiHasError(responseChats)) {
+		dispatch(logout)
+		return
+	}
+
+	dispatch({ chats: responseChats })
+}
+
 export const changePassword = async (
 	dispatch: Dispatch<AppState>,
 	state: AppState,

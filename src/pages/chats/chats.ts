@@ -5,14 +5,20 @@ import { refErrors } from 'helpers/refErrors'
 import { onEvents } from 'helpers/events'
 import { withStore, withRouter } from 'utils'
 import { CoreRouter, Store, Block } from 'core'
+import { chats } from 'services/auth'
+import { diffObjectsDeep } from 'utils'
+import cloneDeep from 'utils/cloneDeep'
+import { mergeDeep } from 'utils'
 
 type ChatsPageProps = {
 	router: CoreRouter
 	store: Store<AppState>
 	onProfile?: () => void
+	onCreate?: () => any
 }
 
 export class ChatsPageN extends Block<ChatsPageProps> {
+	static componentName = 'ChatsPage'
 	constructor(props: ChatsPageProps) {
 		super(props)
 
@@ -44,42 +50,43 @@ export class ChatsPageN extends Block<ChatsPageProps> {
 			// 		console.log(values)
 			// 	}
 			// },
-
 			//},
+		})
+	}
 
+	protected getStateFromProps() {
+		this.state = {
+			chats: {},
+			onCreate: () => {
+				const chatList = cloneDeep(this.props.store.getState().chats!)
+				const nextState = {
+					chats: { ...chatList },
+				}
+				this.setState(nextState)
+			},
 			onProfile: () => {
 				this.props.router.go('/profile')
 			},
-		})
+		}
 	}
 
 	render() {
 		return `
 			<div class="general">
 					<div class="general__chats">
-							{{{Button 
-								class="general__profile" 
-								onClick=onProfile 
-								text="Профиль"}}}
-							<input type="text" class="general__search" placeholder="Поиск">
-							<ul class="general__items">
-								{{{Chat
-									text="Он: привет"
-									nick="Mark"
-								}}}	
-								{{{Chat
-									text="Он: привет"
-									nick="Lec"
-								}}}	
-								{{{Chat
-									text="Он: привет"
-									nick="Zver"
-								}}}	
-								{{{Chat
-									text="Он: привет"
-									nick="Holl"
-								}}}	
-							</ul>
+					<div class="general__buttons">
+					{{{Button 
+							class="general__profile" onClick=onCreate text="Создать чат"}}}
+						{{{Button	class="general__profile" onClick=onProfile text="Профиль"}}}
+					</div>
+					<input type="text" class="general__search" placeholder="Поиск">
+					<ul class="general__items">
+
+						{{#each chats}}
+								{{{Chat text="asd" title="{{title}}" }}}
+						{{/each}}
+						
+					</ul>
 
 					</div>
 					<div class="general__active-chat">
@@ -106,7 +113,7 @@ export class ChatsPageN extends Block<ChatsPageProps> {
 								ref="messageInputRef"
 							}}}
 							{{#if error}}{{error}}{{/if}}
-							{{{Button class="sign-btn sign-btn-message" text="Отправить" onClick=onSubmit}}}
+							{{{Button class="sign-btn sign-btn-message" text="Отправить" onClick=onSend}}}
 							</div>
 					</div>
 			</div>
