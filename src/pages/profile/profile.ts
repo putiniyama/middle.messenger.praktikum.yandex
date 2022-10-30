@@ -1,9 +1,16 @@
-import Block from '../../core/Block'
+import { withStore, withRouter } from 'utils'
+import { CoreRouter, Store, Block } from 'core'
 import { validAllForm } from 'helpers/validAllForm'
+import { changeProfile, changeAvatar } from 'services/auth'
 
-export class ProfilePage extends Block {
-	constructor() {
-		super()
+type ProfilePageProps = {
+	router: CoreRouter
+	store: Store<AppState>
+}
+export class ProfilePageN extends Block<ProfilePageProps> {
+	static componentName = 'ProfilePage'
+	constructor(props: ProfilePageProps) {
+		super(props)
 
 		this.setProps({
 			error: '',
@@ -13,13 +20,21 @@ export class ProfilePage extends Block {
 			onSubmit: () => {
 				event?.preventDefault()
 				const inputs = document.querySelectorAll('input')
-				let values = {}
+				const profileData = {
+					first_name: '',
+					second_name: '',
+					display_name: '',
+					login: '',
+					email: '',
+					phone: '',
+					avatar: '',
+				}
 				let res: {}
 				let isValid = validAllForm(inputs, this)
-
 				if (this.refs.buttonRef.props.text === 'Изменить данные') {
 					this.refs.buttonRef.setProps({ text: 'Сохранить данные' })
 					this.refs.buttonPassRef.element.style.display = 'none'
+					this.refs.buttonChatRef.element.style.display = 'none'
 				} else {
 					if (isValid) {
 						inputs.forEach(item => {
@@ -27,39 +42,66 @@ export class ProfilePage extends Block {
 							res = {
 								[inputNameItem]: item.value,
 							}
-							Object.assign(values, res)
+							Object.assign(profileData, res)
 						})
-						console.log(values)
 						this.refs.buttonPassRef.element.style.display = 'block'
+						this.refs.buttonChatRef.element.style.display = 'block'
+						this.props.store.dispatch(changeProfile, profileData)
+						console.log(profileData)
 					}
 				}
 			},
-			onRouter: () => {
-				passwordChangePage()
+			onSetAvatar: () => {
+				let avatar: HTMLInputElement = document.querySelector('#ava13')!
+
+				if (avatar.files!.length > 0) {
+					let formData = new FormData()
+					formData.append('avatar', avatar.files![0])
+					this.props.store.dispatch(changeAvatar, formData)
+				} else {
+					console.log('Файл не выбран!!')
+				}
+			},
+			onChangePassword: () => {
+				this.props.router.go('/password')
+			},
+
+			onChat: () => {
+				this.props.router.go('/messenger')
 			},
 		})
 	}
 
 	render() {
+		const user = this.props.store.getState().user
+		const avatar = `https://ya-praktikum.tech/api/v2/resources/${user?.avatar}`
 		return `
     <div class="profile">
     <div class="profile__wrapper">
-        <div class="profile__avatar">
-            <div class="profile__photo"></div>
-            <div class="profile__name">Алексей</div>
-        </div>
+
+			<label class="profile__avatar">
+				<input id="ava13" type="file">	 
+						<img src="${avatar}" class="profile__photo" ></img>
+						
+			</label>
+
+			<div class="profile__name">Алексей</div>
+
+
         <div class="profile__settings">
             <div class="profile__title">Данные</div>
             <div class="profile__items">
                 {{{ControlledInput 
 									class-controled="controlled-input"
-									class=classItem
+									class="input"
 									ref="firstNameInputRef"
 									onInput=onInput
 									onFocus=onFocus
 									type="text"
 									name="first_name"
 									placeholder="Имя"
+									value="${user?.firstName}"
+									
 								}}}
 								{{{ControlledInput 
 									class-controled="controlled-input"
@@ -70,6 +112,7 @@ export class ProfilePage extends Block {
 									type="text"
 									name="second_name"
 									placeholder="Фамилия"
+									value="${user?.secondName}"
 								}}}
 								{{{ControlledInput 
 									class-controled="controlled-input"
@@ -80,6 +123,7 @@ export class ProfilePage extends Block {
 									type="text"
 									name="login"
 									placeholder="Логин"
+									value="${user?.login}"
 								}}}
 								{{{ControlledInput 
 									class-controled="controlled-input"
@@ -90,6 +134,7 @@ export class ProfilePage extends Block {
 									type="text"
 									name="email"
 									placeholder="Почта"
+									value="${user?.email}"
 								}}}
 								{{{ControlledInput 
 									class-controled="controlled-input"
@@ -98,8 +143,10 @@ export class ProfilePage extends Block {
 									onInput=onInput
 									onFocus=onFocus
 									type="text"
-									name="name_view"
+									name="display_name"
 									placeholder="Отображающееся имя"
+									value="${user?.displayName ? user?.displayName : ''}"
+								
 								}}}
 								{{{ControlledInput 
 									class-controled="controlled-input"
@@ -110,12 +157,15 @@ export class ProfilePage extends Block {
 									type="text"
 									name="phone"
 									placeholder="Телефон"
+									value="${user?.phone}"
 								}}}
 
             </div>
             <div class="profile__btns">
                 {{{Button ref="buttonRef" name="data-change" class="sign-btn" text="Изменить данные" onClick=onSubmit}}}
-								{{{Button ref="buttonPassRef" name="password-change" class="sign-btn" text="Изменить пароль" onClick=onRouter}}}
+								{{{Button ref="buttonPassRef" name="password-change" class="sign-btn" text="Изменить пароль" onClick=onChangePassword}}}
+								{{{Button ref="buttonAvaRef" name="avatar-change" class="sign-btn" text="Сохранить аватар" onClick=onSetAvatar}}}
+								{{{Button ref="buttonChatRef" name="profile-chat" class="sign-btn" text="Чат" onClick=onChat}}}
             </div>
         </div>
 
@@ -124,3 +174,6 @@ export class ProfilePage extends Block {
     `
 	}
 }
+
+const ProfilePage = withRouter(withStore(ProfilePageN))
+export { ProfilePage }

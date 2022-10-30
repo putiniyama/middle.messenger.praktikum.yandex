@@ -3,9 +3,9 @@ import { ValidateType, validateForm } from './validateForm'
 export function onEvents(inputEl: HTMLInputElement, inputName: string) {
 	if (
 		inputName === 'password' ||
-		inputName === 'password_old' ||
-		inputName === 'password_new' ||
-		inputName === 'password_verynew'
+		inputName === 'oldPassword' ||
+		inputName === 'newPassword' ||
+		inputName === 'newPasswordNew'
 	) {
 		const error = validateForm([
 			{ type: ValidateType.Password, value: inputEl.value },

@@ -13,8 +13,23 @@ const routes = [
 		shouldAuthorized: false,
 	},
 	{
+		path: '/signup',
+		block: Pages.Signup,
+		shouldAuthorized: false,
+	},
+	{
 		path: '/profile',
 		block: Pages.Profile,
+		shouldAuthorized: true,
+	},
+	{
+		path: '/password',
+		block: Pages.Password,
+		shouldAuthorized: true,
+	},
+	{
+		path: '/messenger',
+		block: Pages.Chats,
 		shouldAuthorized: true,
 	},
 	{

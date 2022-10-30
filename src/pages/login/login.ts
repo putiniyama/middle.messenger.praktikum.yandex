@@ -2,17 +2,23 @@ import { withStore, withRouter } from 'utils'
 import { login } from 'services/auth'
 import { CoreRouter, Store, Block } from 'core'
 import { validAllForm } from 'helpers/validAllForm'
+import { authAPI } from 'api/auth'
 
 type LoginPageProps = {
 	router: CoreRouter
 	store: Store<AppState>
+	formError?: () => string | null
+	onNavigateSignUp?: () => void
 }
-export class LoginPage extends Block<LoginPageProps> {
+export class LoginPageN extends Block<LoginPageProps> {
 	static componentName = 'LoginPage'
 
 	constructor(props: LoginPageProps) {
 		super(props)
-		this.setProps({})
+		this.setProps({
+			formError: () => this.formError(),
+			onNavigateSignUp: () => this.onNavigateSignUp(),
+		})
 	}
 
 	protected getStateFromProps() {
@@ -21,53 +27,44 @@ export class LoginPage extends Block<LoginPageProps> {
 				login: '',
 				password: '',
 			},
-			errors: {
-				login: '',
-				password: '',
-			},
-			onLogin: () => {
-				//console.log(www)
-				// TODO: вынести в отдельный метод
-
-				let hasError = false
-				const loginData = {
-					login: 'asdasd32',
-					password: 'fghlkjJHJKH436',
-				}
-
-				const nextState = {
-					errors: {
-						login: '',
-						password: '',
-					},
-					values: { ...loginData },
-				}
-
-				event?.preventDefault()
-				const inputs = document.querySelectorAll('input')
-				let values = {}
-				let res: {}
-				let isValid = validAllForm(inputs, this)
-
-				//if (isValid) {
-				inputs.forEach(item => {
-					let inputNameItem = <string>item.getAttribute('name')
-					res = {
-						[inputNameItem]: item.value,
-					}
-					Object.assign(values, res)
-				})
-				//console.log(values)
-				store.dispatch(login, loginData)
-				
-				//}
-			},
+			onLogin: () => this.onLogin(),
 		}
 	}
 
+	formError() {
+		return this.props.store.getState().loginFormError
+	}
+
+	onLogin() {
+		event?.preventDefault()
+		const loginData = {
+			login: '',
+			password: '',
+		}
+
+		const inputs = document.querySelectorAll('input')
+		let res: {}
+		let isValid = validAllForm(inputs, this)
+
+		if (isValid) {
+			inputs.forEach(item => {
+				let inputNameItem = <string>item.getAttribute('name')
+				res = {
+					[inputNameItem]: item.value,
+				}
+				Object.assign(loginData, res)
+			})
+
+			this.props.store.dispatch(login, loginData)
+		}
+	}
+
+	onNavigateSignUp() {
+		this.props.router.go('/signup')
+	}
+
 	render() {
-		//const { values } = this.state
-		//console.log(values)
+		const err = this.formError()
 
 		return `
     <div class="authorization">
@@ -83,7 +80,7 @@ export class LoginPage extends Block<LoginPageProps> {
 					type="text"
 					name="login"
 					placeholder="Логин"
-					
+					error="${err ? err : ''}"
 				}}}
 				{{{ControlledInput 
 					class-controled="controlled-input"
@@ -94,16 +91,17 @@ export class LoginPage extends Block<LoginPageProps> {
 					type="password"
 					name="password"
 					placeholder="Пароль"
-					
+					error="${err ? err : ''}"
 				}}}
 				{{{Button class="sign-btn" text="Войти" onClick=onLogin}}}
 			</form>
 			
-			{{{Button class="sign-btn" text="Зарегистрироваться" onClick=onRouter}}}
+			{{{Button class="sign-btn" text="Зарегистрироваться" onClick=onNavigateSignUp}}}
       </div>
     </div>
     `
 	}
 }
 
-export default withRouter(withStore(LoginPage))
+const LoginPage = withRouter(withStore(LoginPageN))
+export { LoginPage }

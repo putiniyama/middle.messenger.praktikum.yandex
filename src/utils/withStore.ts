@@ -15,7 +15,6 @@ export function withStore<P extends WithStateProps>(
 		}
 
 		__onChangeStoreCallback = () => {
-			console.log('asd')
 			/**
 			 * TODO: проверить что стор реально обновлен
 			 * и прокидывать не целый стор, а необходимые поля

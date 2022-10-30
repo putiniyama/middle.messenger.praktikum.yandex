@@ -25,7 +25,7 @@ export class Input extends Block {
 
 	protected render(): string {
 		return `
-			<input name="{{name}}" class="{{class}}" type="{{type}}" placeholder="{{placeholder}}" value="" ref="inRef" />
+			<input name="{{name}}" class="{{class}}" type="{{type}}" placeholder="{{placeholder}}" value="{{value}}" ref="inRef" />
 		`
 	}
 }

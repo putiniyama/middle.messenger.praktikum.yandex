@@ -1,32 +1,67 @@
-import { chatsPage } from '../../index'
-import Block from '../../core/Block'
+import { withStore, withRouter } from 'utils'
+//import { chatsPage } from '../../index'
+import { CoreRouter, Store, Block } from 'core'
 import { validAllForm } from 'helpers/validAllForm'
+import { signup } from 'services/auth'
 
-export class SignUpPage extends Block {
-	constructor() {
-		super()
+type SignupPageProps = {
+	router: CoreRouter
+	store: Store<AppState>
+	formError?: () => string | null
+	onNavigateSignUp?: () => void
+}
 
-		this.setProps({
-			onSubmit: () => {
-				event?.preventDefault()
-				const inputs = document.querySelectorAll('input')
-				let values = {}
-				let res: {}
-				let isValid = validAllForm(inputs, this)
+export class SignUpPageN extends Block<SignupPageProps> {
+	static componentName = 'SignupPage'
+	constructor(props: SignupPageProps) {
+		super(props)
 
-				if (isValid) {
-					inputs.forEach(item => {
-						let inputNameItem = <string>item.getAttribute('name')
-						res = {
-							[inputNameItem]: item.value,
-						}
-						Object.assign(values, res)
-					})
-					console.log(values)
-					chatsPage()
-				}
+		this.setProps({})
+	}
+
+	protected getStateFromProps() {
+		this.state = {
+			values: {
+				first_name: '',
+				second_name: '',
+				login: '',
+				email: '',
+				password: '',
+				phone: '',
 			},
-		})
+			onSignUp: () => this.onSignUp(),
+		}
+	}
+
+	onSignUp() {
+		event?.preventDefault()
+		const signUpData = {
+			first_name: '',
+			second_name: '',
+			login: '',
+			email: '',
+			password: '',
+			phone: '',
+		}
+
+		const inputs = document.querySelectorAll('input')
+		let res: {}
+		let isValid = validAllForm(inputs, this)
+
+		if (isValid) {
+			inputs.forEach(item => {
+				let inputNameItem = <string>item.getAttribute('name')
+				res = {
+					[inputNameItem]: item.value,
+				}
+				Object.assign(signUpData, res)
+				Object.assign(this.state, res)
+			})
+
+			console.log(this.state)
+
+			this.props.store.dispatch(signup, signUpData)
+		}
 	}
 
 	render() {
@@ -100,9 +135,12 @@ export class SignUpPage extends Block {
 				placeholder="Телефон"
 				error=error
 			}}}
-			{{{Button class="sign-btn" text="Зарегистрироваться" onClick=onSubmit}}}
+			{{{Button class="sign-btn" text="Зарегистрироваться" onClick=onSignUp}}}
       </div>
     </div>
     `
 	}
 }
+
+const SignUpPage = withRouter(withStore(SignUpPageN))
+export { SignUpPage }

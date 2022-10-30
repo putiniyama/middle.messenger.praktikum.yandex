@@ -34,15 +34,15 @@ export function refErrors(
 		context.refs.nameViewInputRef.refs.errorRef.setProps({ text: error })
 	}
 
-	if (inputName === 'password_old') {
+	if (inputName === 'oldPassword') {
 		context.refs.passOldInputRef.refs.errorRef.setProps({ text: error })
 	}
 
-	if (inputName === 'password_new') {
+	if (inputName === 'newPassword') {
 		context.refs.passNewInputRef.refs.errorRef.setProps({ text: error })
 	}
 
-	if (inputName === 'password_verynew') {
+	if (inputName === 'newPasswordNew') {
 		context.refs.passVeryNewInputRef.refs.errorRef.setProps({ text: error })
 	}
 }

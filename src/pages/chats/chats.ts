@@ -1,47 +1,54 @@
 import input from 'components/input'
 import chat from 'components/chat'
-import { profilePage } from '../../index'
-import Block from '../../core/Block'
 import { validateForm, ValidateType } from '../../helpers/validateForm'
 import { refErrors } from 'helpers/refErrors'
 import { onEvents } from 'helpers/events'
+import { withStore, withRouter } from 'utils'
+import { CoreRouter, Store, Block } from 'core'
 
-export class ChatsPage extends Block {
-	constructor() {
-		super()
+type ChatsPageProps = {
+	router: CoreRouter
+	store: Store<AppState>
+	onProfile?: () => void
+}
+
+export class ChatsPageN extends Block<ChatsPageProps> {
+	constructor(props: ChatsPageProps) {
+		super(props)
 
 		this.setProps({
-			error: '',
-			onSubmit: () => {
-				event?.preventDefault()
-				const inputs = document.querySelectorAll('input')
-				let errors: null[] = []
-				let values = {}
-				let res: {}
+			//error: '',
+			// onSubmit: () => {
+			// 	event?.preventDefault()
+			// 	const inputs = document.querySelectorAll('input')
+			// 	let errors: null[] = []
+			// 	let values = {}
+			// 	let res: {}
+			// 	for (let i = 0; i < inputs.length; i++) {
+			// 		const inputEl = <HTMLInputElement>inputs[i]
+			// 		const inputName = inputEl.getAttribute('name') as string
+			// 		const error = onEvents(inputEl, inputName)
+			// 		refErrors(inputName, this, error)
+			// 		if (!error) {
+			// 			errors.push(null)
+			// 		}
+			// 	}
+			// 	if (errors.length == inputs.length) {
+			// 		inputs.forEach(item => {
+			// 			let inputNameItem = <string>item.getAttribute('name')
+			// 			res = {
+			// 				[inputNameItem]: item.value,
+			// 			}
+			// 			Object.assign(values, res)
+			// 		})
+			// 		console.log(values)
+			// 	}
+			// },
 
-				for (let i = 0; i < inputs.length; i++) {
-					const inputEl = <HTMLInputElement>inputs[i]
-					const inputName = inputEl.getAttribute('name') as string
-					const error = onEvents(inputEl, inputName)
-					refErrors(inputName, this, error)
-					if (!error) {
-						errors.push(null)
-					}
-				}
+			//},
 
-				if (errors.length == inputs.length) {
-					inputs.forEach(item => {
-						let inputNameItem = <string>item.getAttribute('name')
-						res = {
-							[inputNameItem]: item.value,
-						}
-						Object.assign(values, res)
-					})
-					console.log(values)
-				}
-			},
-			onRouter: () => {
-				profilePage()
+			onProfile: () => {
+				this.props.router.go('/profile')
 			},
 		})
 	}
@@ -52,7 +59,7 @@ export class ChatsPage extends Block {
 					<div class="general__chats">
 							{{{Button 
 								class="general__profile" 
-								onClick=onRouter 
+								onClick=onProfile 
 								text="Профиль"}}}
 							<input type="text" class="general__search" placeholder="Поиск">
 							<ul class="general__items">
@@ -106,3 +113,6 @@ export class ChatsPage extends Block {
 		`
 	}
 }
+
+const ChatsPage = withRouter(withStore(ChatsPageN))
+export { ChatsPage }

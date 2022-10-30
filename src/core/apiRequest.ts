@@ -9,7 +9,7 @@ export const METHODS = {
 type Options = {
 	method: typeof METHODS[keyof typeof METHODS]
 	data?: any
-	title?: string[]
+	title?: string
 }
 
 /*
@@ -32,17 +32,17 @@ export default class HTTPTransport {
 		})
 	}
 
-	put(
+	put<T extends any>(
 		url: string,
 		options: OptionsWithoutMethod = {}
-	): Promise<XMLHttpRequest> {
+	): Promise<T> {
 		return this.request(url, { ...options, method: METHODS.PUT })
 	}
 
-	post(
+	post<T extends any>(
 		url: string,
 		options: OptionsWithoutMethod = {}
-	): Promise<XMLHttpRequest> {
+	): Promise<T> {
 		return this.request(url, { ...options, method: METHODS.POST })
 	}
 
@@ -55,14 +55,13 @@ export default class HTTPTransport {
 
 	request(url: string, options: Options): any {
 		const { method, data, title } = options
-		console.log(method, data)
 		return new Promise((resolve, reject): any => {
 			const xhr = new XMLHttpRequest()
 			url = path + url
 			xhr.open(method, url)
-
 			xhr.onload = function () {
 				resolve(xhr.response)
+				console.log(xhr.response)
 			}
 
 			xhr.onabort = reject
@@ -71,15 +70,21 @@ export default class HTTPTransport {
 
 			xhr.responseType = 'json'
 			xhr.withCredentials = true
-			xhr.setRequestHeader('Content-Type', 'application/json;')
 
 			if (
 				method ===
-					(METHODS.GET || METHODS.POST || METHODS.DELETE || METHODS.PUT) ||
+					(METHODS.GET ||
+						METHODS.POST ||
+						METHODS.DELETE ||
+						(!(data instanceof FormData) && METHODS.PUT)) ||
 				!data
 			) {
+				xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8')
 				xhr.send()
+			} else if (data instanceof FormData && METHODS.PUT) {
+				xhr.send(data)
 			} else {
+				xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8')
 				xhr.send(JSON.stringify(data))
 			}
 		})

@@ -12,6 +12,7 @@ declare global {
 		isLoading: boolean
 		loginFormError: string | null
 		user: User | null
+		
 	}
 
 	export type User = {

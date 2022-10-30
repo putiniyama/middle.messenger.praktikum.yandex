@@ -56,7 +56,7 @@ export class ControlledInput extends Block {
 					onFocus=onFocus
 					onInput=onInput
 					onBlur=onBlur
-					value=""
+					value=value
 					ref="valueRef"
 				}}}
 				{{{Error ref="errorRef" text=error}}}

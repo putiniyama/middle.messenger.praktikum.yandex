@@ -9,7 +9,6 @@ export async function initApp(dispatch: Dispatch<AppState>) {
 
 	try {
 		const response = await authAPI.me()
-		console.log(response)
 
 		if (apiHasError(response)) {
 			return
