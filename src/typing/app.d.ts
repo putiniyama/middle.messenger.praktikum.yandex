@@ -12,7 +12,20 @@ declare global {
 		isLoading: boolean
 		loginFormError: string | null
 		user: User | null
-		
+		chats: Chats | null
+	}
+
+	export type Chats = {
+		id: number
+		title: string
+		avatar: string
+		created_by: number
+		unread_count: number
+		last_message: {
+			user: User | null
+			time: string | null
+			content: string | null
+		} | null
 	}
 
 	export type User = {
