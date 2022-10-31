@@ -2,6 +2,7 @@
 
 .general {
 	&__item {
+		position: relative;
 		display: flex;
 		width: 270px;
 		height: 70px;
@@ -32,8 +33,17 @@
 		&-photo {
 			padding: 15px;
 		}
+		&-wastebasket {
+			width: 20px;
+			height: 20px;
+			cursor: pointer;
+			position: absolute;
+			right: 5px;
+			bottom: 5px;
+			z-index: 1;
+		}
 
-		&-nick {
+		&-text {
 			margin: 0;
 			font-weight: 500;
 		}

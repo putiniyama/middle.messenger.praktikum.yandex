@@ -10,7 +10,12 @@
 	}
 	&__buttons {
 		display: flex;
-		justify-content: space-between;
+		flex-direction: column;
+		align-self: start;
+	}
+	&__create-chat {
+		display: flex;
+		flex-direction: row;
 	}
 
 	&__chats {
@@ -18,6 +23,14 @@
 		width: 270px;
 		height: 95vh;
 		flex-direction: column;
+	}
+
+	&__input {
+		height: 40px;
+		padding: 3px;
+		margin-top: 14px;
+		font-size: 13px;
+		line-height: 19px;
 	}
 
 	&__profile {
@@ -55,6 +68,12 @@
 		margin: 15px 0 0;
 		gap: 5px;
 		list-style: none;
+	}
+	&__item {
+		&:hover {
+			background-color: var(--backitemcolor-hover);
+		}
+
 	}
 
 	&__active-chat {

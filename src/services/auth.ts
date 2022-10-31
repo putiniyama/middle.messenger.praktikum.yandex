@@ -30,8 +30,31 @@ type ChahgeProfile = {
 	email: string
 	phone: string
 }
+type ChatAdd = {
+	title: string
+}
+
+export const chatAdd = async (
+	dispatch: Dispatch<AppState>,
+	state: AppState,
+	action: ChatAdd
+) => {
+	dispatch({ isLoading: true })
+	const response = await authAPI.chatAdd(action)
+	if (apiHasError(response)) {
+		dispatch({ isLoading: false, loginFormError: response.reason })
+		return
+	}
+	const responseChats = await authAPI.chats()
+	if (apiHasError(responseChats)) {
+		dispatch({ isLoading: false, loginFormError: responseChats.reason })
+		return
+	}
+	dispatch({ isLoading: false, loginFormError: null, chats: responseChats })
+}
 
 export const chats = async (dispatch: Dispatch<AppState>) => {
+	dispatch({ isLoading: true })
 	const responseChats = await authAPI.chats()
 	if (apiHasError(responseChats)) {
 		dispatch({ isLoading: false, loginFormError: responseChats.reason })

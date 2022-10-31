@@ -3,18 +3,22 @@ import chat from 'components/chat'
 import { validateForm, ValidateType } from '../../helpers/validateForm'
 import { refErrors } from 'helpers/refErrors'
 import { onEvents } from 'helpers/events'
-import { withStore, withRouter } from 'utils'
+import { withStore, withRouter, withChats } from 'utils'
 import { CoreRouter, Store, Block } from 'core'
 import { chats } from 'services/auth'
 import { diffObjectsDeep } from 'utils'
 import cloneDeep from 'utils/cloneDeep'
 import { mergeDeep } from 'utils'
+import { chatAdd } from 'services/auth'
+import EventBus from 'core/EventBus'
 
 type ChatsPageProps = {
 	router: CoreRouter
 	store: Store<AppState>
-	onProfile?: () => void
+	// onProfile?: () => void
 	onCreate?: () => any
+	chatsList?: () => any
+	onClickChat?: () => void
 }
 
 export class ChatsPageN extends Block<ChatsPageProps> {
@@ -23,6 +27,19 @@ export class ChatsPageN extends Block<ChatsPageProps> {
 		super(props)
 
 		this.setProps({
+			chatsList: () => cloneDeep(this.props.store.getState().chats!),
+			onClickChat: () => {
+				console.log('asd')
+			},
+			
+
+			// onLoad: () => {
+			// 	const chatList = cloneDeep(this.props.store.getState().chats!)
+			// 	const nextState = {
+			// 		chats: { ...chatList },
+			// 	}
+			// 	this.setState(nextState)
+			// },
 			//error: '',
 			// onSubmit: () => {
 			// 	event?.preventDefault()
@@ -57,12 +74,24 @@ export class ChatsPageN extends Block<ChatsPageProps> {
 	protected getStateFromProps() {
 		this.state = {
 			chats: {},
+			errorChatTitle: '',
 			onCreate: () => {
-				const chatList = cloneDeep(this.props.store.getState().chats!)
-				const nextState = {
-					chats: { ...chatList },
+				const inputChatTitle = this.element!.querySelector(
+					'.general__input'
+				) as HTMLInputElement
+				if (inputChatTitle.value) {
+					this.props.store.dispatch(chatAdd, {
+						title: inputChatTitle.value,
+					})
+					const chatList = this.props.store.getState().chats
+					const nextState = {
+						chats: { ...chatList },
+					}
+					this.setState(nextState)
+					this.state.errorChatTitle = ''
+				} else {
+					this.state.errorChatTitle = 'ВВедите имя чата'
 				}
-				this.setState(nextState)
 			},
 			onProfile: () => {
 				this.props.router.go('/profile')
@@ -70,22 +99,47 @@ export class ChatsPageN extends Block<ChatsPageProps> {
 		}
 	}
 
-	render() {
+	render(): string {
+		const chatItems = this.element!.querySelector('.general__name')
+		console.log(chatItems)
+		chatItems?.addEventListener('click', () => {
+			console.log('asd')
+		})
+		// chatItems?.forEach(item => {
+		// 	console.log(item)
+		// 	item.addEventListener('click', () => {
+		// 		console.log('asd')
+		// 	})
+		// })
+
 		return `
 			<div class="general">
-					<div class="general__chats">
+					<div class="general__chats" >
 					<div class="general__buttons">
-					{{{Button 
-							class="general__profile" onClick=onCreate text="Создать чат"}}}
+						<div class="general__create-chat">
+							{{{Button 
+									class="general__profile" onClick=onCreate text="Создать чат"}}}
+							{{{ControlledInput 
+								class-controled="controlled-input general__chat-input"
+								name="chat_title"
+								class="general__input"
+								type="text"
+								placeholder="Имя чата"
+								onFocus=onFocus
+								onInput=onInput
+								onBlur=onBlur
+								ref="messageInputRefTitle"
+								error=errorChatTitle
+							}}}
+						</div>
 						{{{Button	class="general__profile" onClick=onProfile text="Профиль"}}}
 					</div>
 					<input type="text" class="general__search" placeholder="Поиск">
 					<ul class="general__items">
 
-						{{#each chats}}
-								{{{Chat text="asd" title="{{title}}" }}}
+						{{#each chatsList }}
+								{{{Chat id=id text="" title="{{title}}" }}}
 						{{/each}}
-						
 					</ul>
 
 					</div>
@@ -101,7 +155,6 @@ export class ChatsPageN extends Block<ChatsPageProps> {
 							</div>
 							<div class="general__send">
 							{{{ControlledInput 
-								
 								class-controled="controlled-input controlled-input-message"
 								name="message"
 								class="general__send-message"

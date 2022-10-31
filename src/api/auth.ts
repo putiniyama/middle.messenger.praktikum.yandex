@@ -30,11 +30,15 @@ type ChahgeProfileRequestData = {
 	email: string
 	phone: string
 }
+type chatAddRequestData = {
+	title: string
+}
 
 type LoginResponseData = {} | APIError
 type SignupResponseData = {} | APIError
 type ChahgeProfileResponseData = {} | APIError
 type ChahgePasswordResponseData = [] | APIError
+type chatAddResponseData = [{}] | APIError
 
 export const authAPI = {
 	login: (data: LoginRequestData) =>
@@ -64,6 +68,10 @@ export const authAPI = {
 			}
 		)
 	},
-
+	//добавить типы
 	chats: () => new HTTPTransport().get<Chats>('/chats'),
+
+	chatAdd: (data: chatAddRequestData) => {
+		new HTTPTransport().post<Chats>('/chats', { data })
+	},
 }
