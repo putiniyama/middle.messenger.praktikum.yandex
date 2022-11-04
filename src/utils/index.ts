@@ -1,10 +1,10 @@
-export { mergeDeep } from './mergeDeep'
-export { diffObjectsDeep } from './diffObjectsDeep'
-export { withStore } from './withStore'
-export { withUser } from './withUser'
-export { withRouter } from './withRouter'
-export { withIsLoading } from './withIsLoading'
-export { Pages, getScreenComponent } from './pageList'
-export { transformUser } from './apiTransformers'
-export { hasError as apiHasError } from './apiHasError'
-export { withChats } from './withChats'
+export { mergeDeep } from './mergeDeep';
+export { diffObjectsDeep } from './diffObjectsDeep';
+export { withStore } from './withStore';
+export { withUser } from './withUser';
+export { withRouter } from './withRouter';
+export { withIsLoading } from './withIsLoading';
+export { Pages, getScreenComponent } from './pageList';
+export { transformUser } from './apiTransformers';
+export { hasError as apiHasError } from './apiHasError';
+export { withChats } from './withChats';

@@ -1,6 +1,3 @@
-import input from 'components/input'
-import { validateForm, ValidateType } from 'helpers/validateForm'
-import { onEvents } from 'helpers/events'
 import cloneDeep from 'utils/cloneDeep'
 import { CoreRouter, Store, Block } from 'core'
 import { withStore, withRouter, withChats } from 'utils'
@@ -41,13 +38,3 @@ export class ChatListN extends Block {
 }
 const ChatList = withStore(ChatListN)
 export { ChatList }
-
-/*
-
-
-{{#each chatsList }}
-						{{{Chat id="{{id}}" text="{{}}" title="{{title}}" }}}
-				{{/each}}
-
-
-*/
