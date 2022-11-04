@@ -48,6 +48,7 @@
 	},
 	"dependencies": {
 		"babel-core": "6.26.3",
+		"chai": "^4.3.6",
 		"nanoid": "4.0.0",
 		"stylelint-config-prettier-scss": "^0.0.1",
 		"stylelint-config-standard-scss": "^6.1.0",
