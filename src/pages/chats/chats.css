@@ -1,4 +1,4 @@
-@import '../../variables.css';
+@import "../../variables.css";
 
 .general {
   display: flex;
@@ -8,14 +8,17 @@
     justify-content: end;
     text-decoration: none;
   }
+
   &__correspondence {
     height: 15px;
   }
+
   &__buttons {
     display: flex;
     flex-direction: column;
     align-self: start;
   }
+
   &__create-chat {
     display: flex;
     flex-direction: row;
@@ -73,6 +76,7 @@
     gap: 5px;
     list-style: none;
   }
+
   &__item {
     &:hover {
       background-color: var(--backitemcolor-hover);

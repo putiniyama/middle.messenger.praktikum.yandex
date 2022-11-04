@@ -6,7 +6,7 @@
 		"build": "parcel build src/index.html --no-cache --public-url ./ ",
 		"start": "parcel build src/index.html --no-cache --public-url ./ && node ./server.js",
 		"eslint": "eslint src/**/*.ts --fix",
-		"stylelint": "stylelint **/*.css --fix"
+		"stylelint": "stylelint src/**/*.css --fix"
 	},
 	"alias": {
 		"core": "./src/core",
