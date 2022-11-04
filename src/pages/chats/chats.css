@@ -1,105 +1,105 @@
 @import '../../variables.css';
 
 .general {
-	display: flex;
+  display: flex;
 
-	a {
-		display: flex;
-		justify-content: end;
-		text-decoration: none;
-	}
-	&__correspondence {
-		height: 15px;
-	}
-	&__buttons {
-		display: flex;
-		flex-direction: column;
-		align-self: start;
-	}
-	&__create-chat {
-		display: flex;
-		flex-direction: row;
-		justify-content: end;
-	}
+  a {
+    display: flex;
+    justify-content: end;
+    text-decoration: none;
+  }
+  &__correspondence {
+    height: 15px;
+  }
+  &__buttons {
+    display: flex;
+    flex-direction: column;
+    align-self: start;
+  }
+  &__create-chat {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+  }
 
-	&__chats {
-		display: flex;
-		width: 270px;
-		height: 95vh;
-		flex-direction: column;
-	}
+  &__chats {
+    display: flex;
+    width: 270px;
+    height: 95vh;
+    flex-direction: column;
+  }
 
-	&__input {
-		height: 40px;
-		padding: 3px;
-		margin-top: 14px;
-		font-size: 13px;
-		line-height: 19px;
-	}
+  &__input {
+    height: 40px;
+    padding: 3px;
+    margin-top: 14px;
+    font-size: 13px;
+    line-height: 19px;
+  }
 
-	&__profile {
-		display: flex;
-		width: 84px;
-		height: 29px;
-		align-items: center;
-		align-self: end;
-		justify-content: center;
-		border: none;
-		background-color: var(--backcolorbtn);
-		cursor: pointer;
+  &__profile {
+    display: flex;
+    width: 84px;
+    height: 29px;
+    align-items: center;
+    align-self: end;
+    justify-content: center;
+    border: none;
+    background-color: var(--backcolorbtn);
+    cursor: pointer;
 
-		&:hover {
-			background-color: var(--backcolorbtn-hover);
-		}
-	}
+    &:hover {
+      background-color: var(--backcolorbtn-hover);
+    }
+  }
 
-	&__search {
-		width: 100%;
-		height: 38px;
-		border: 1px solid #000;
-		margin-top: 13px;
-		color: #a1a1a1;
-		font-size: 20px;
-		line-height: 24px;
-		text-align: center;
-	}
+  &__search {
+    width: 100%;
+    height: 38px;
+    border: 1px solid #000;
+    margin-top: 13px;
+    color: #a1a1a1;
+    font-size: 20px;
+    line-height: 24px;
+    text-align: center;
+  }
 
-	&__items {
-		display: flex;
-		width: 100%;
-		flex-direction: column;
-		padding: 0;
-		margin: 15px 0 0;
-		gap: 5px;
-		list-style: none;
-	}
-	&__item {
-		&:hover {
-			background-color: var(--backitemcolor-hover);
-		}
+  &__items {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    padding: 0;
+    margin: 15px 0 0;
+    gap: 5px;
+    list-style: none;
+  }
+  &__item {
+    &:hover {
+      background-color: var(--backitemcolor-hover);
+    }
 
-		.active {
-			background-color: var(--backitemcolor-hover);
-		}
-	}
+    .active {
+      background-color: var(--backitemcolor-hover);
+    }
+  }
 
-	&__active-chat {
-		display: flex;
-		width: 100%;
-		height: 95vh;
-		flex-direction: column;
-		justify-content: space-between;
-	}
+  &__active-chat {
+    display: flex;
+    width: 100%;
+    height: 95vh;
+    flex-direction: column;
+    justify-content: space-between;
+  }
 
-	&__send {
-		display: flex;
-		width: 100%;
-		justify-content: space-between;
+  &__send {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
 
-		&-message {
-			width: 100%;
-			height: 100%;
-			margin-right: 10px;
-		}
-	}
+    &-message {
+      width: 100%;
+      height: 100%;
+      margin-right: 10px;
+    }
+  }
 }
