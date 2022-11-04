@@ -2,56 +2,56 @@
 @import '../../variables.css';
 
 .general {
-	&__item {
-		position: relative;
-		display: flex;
-		width: 270px;
-		height: 70px;
-		border-bottom: 1px solid #000;
-		cursor: pointer;
+&__item {
+position: relative;
+display: flex;
+width: 270px;
+height: 70px;
+border-bottom: 1px solid #000;
+cursor: pointer;
 
-		&:hover {
-			background: var(--backitemiolor-hover);
-		}
+&:hover {
+background: var(--backitemiolor-hover);
+}
 
-		&-avatar {
-			overflow: hidden;
-			width: 40px;
-			height: 40px;
-			border-radius: 50%;
-			background: #d9d9d9;
-		}
+&-avatar {
+overflow: hidden;
+width: 40px;
+height: 40px;
+border-radius: 50%;
+background: #d9d9d9;
+}
 
-		&-info {
-			display: flex;
-			width: 100%;
-			flex-direction: column;
-			align-items: flex-start;
-			justify-content: center;
-			gap: 3px;
-		}
+&-info {
+display: flex;
+width: 100%;
+flex-direction: column;
+align-items: flex-start;
+justify-content: center;
+gap: 3px;
+}
 
-		&-photo {
-			padding: 15px;
-		}
-		/* stylelint-disable-next-line rule-empty-line-before */
-		&-wastebasket {
-			width: 20px;
-			height: 20px;
-			cursor: pointer;
-			position: absolute;
-			right: 5px;
-			bottom: 5px;
-			z-index: 1;
-		}
+&-photo {
+padding: 15px;
+}
+/* stylelint-disable-next-line rule-empty-line-before */
+&-wastebasket {
+width: 20px;
+height: 20px;
+cursor: pointer;
+position: absolute;
+right: 5px;
+bottom: 5px;
+z-index: 1;
+}
 
-		&-text {
-			margin: 0;
-			font-weight: 500;
-		}
+&-text {
+margin: 0;
+font-weight: 500;
+}
 
-		&-title {
-			margin: 0;
-		}
-	}
+&-title {
+margin: 0;
+}
+}
 }
