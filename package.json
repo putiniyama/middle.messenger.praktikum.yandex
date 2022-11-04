@@ -48,6 +48,8 @@
 	"dependencies": {
 		"babel-core": "6.26.3",
 		"nanoid": "4.0.0",
+		"stylelint-config-prettier-scss": "^0.0.1",
+		"stylelint-config-standard-scss": "^6.1.0",
 		"stylelint-scss": "^4.3.0",
 		"typescript-eslint": "^0.0.1-alpha.0"
 	},
