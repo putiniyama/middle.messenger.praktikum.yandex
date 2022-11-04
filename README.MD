@@ -26,4 +26,4 @@
 
 ### Хостинг
 
-https://6341e2f3f42c310acbb730a3--dreamy-cascaron-781b08.netlify.app/
+https://lovely-starburst-08e7a1.netlify.app/
