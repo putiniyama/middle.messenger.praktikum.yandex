@@ -30,15 +30,25 @@ type ChahgeProfileRequestData = {
 	email: string
 	phone: string
 }
-type chatAddRequestData = {
+type ChatAddRequestData = {
 	title: string
+}
+
+type ChatIdRequestData = {
+	chatId: number
+}
+
+type ChatUserRequestData = {
+	users: number[]
+	chatId: number
 }
 
 type LoginResponseData = {} | APIError
 type SignupResponseData = {} | APIError
 type ChahgeProfileResponseData = {} | APIError
 type ChahgePasswordResponseData = [] | APIError
-type chatAddResponseData = [{}] | APIError
+type ChatAddResponseData = [{}] | APIError
+type ChatIdResponseData = [{}] | APIError
 
 export const authAPI = {
 	login: (data: LoginRequestData) =>
@@ -69,9 +79,26 @@ export const authAPI = {
 		)
 	},
 	//добавить типы
-	chats: () => new HTTPTransport().get<Chats>('/chats'),
+	chats: () => new HTTPTransport().get<Chats>('chats'),
 
-	chatAdd: (data: chatAddRequestData) => {
-		new HTTPTransport().post<Chats>('/chats', { data })
+	chatAdd: (data: ChatAddRequestData) => {
+		new HTTPTransport().post<Chats>('chats', { data })
 	},
+
+	chatDelete: (data: ChatIdRequestData) =>
+		new HTTPTransport().delete<ChatIdResponseData>('chats', { data }),
+
+	chatGetUser: (data: ChatIdRequestData) =>
+		new HTTPTransport().get<ChatIdResponseData>(`chats/${data}/users`),
+
+	chatAddUser: (data: ChatUserRequestData) => {
+		new HTTPTransport().put('chats/users', { data })
+	},
+
+	chatDeleteUser: (data: ChatUserRequestData) => {
+		new HTTPTransport().delete('chats/users', { data })
+	},
+
+	chatGetToken: (data: ChatIdRequestData | Number) =>
+		new HTTPTransport().post(`chats/token/${data}`),
 }

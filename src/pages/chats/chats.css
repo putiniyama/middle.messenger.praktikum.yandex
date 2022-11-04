@@ -8,6 +8,9 @@
 		justify-content: end;
 		text-decoration: none;
 	}
+	&__correspondence {
+		height: 15px;
+	}
 	&__buttons {
 		display: flex;
 		flex-direction: column;
@@ -16,6 +19,7 @@
 	&__create-chat {
 		display: flex;
 		flex-direction: row;
+		justify-content: end;
 	}
 
 	&__chats {
@@ -74,6 +78,9 @@
 			background-color: var(--backitemcolor-hover);
 		}
 
+		.active {
+			background-color: var(--backitemcolor-hover);
+		}
 	}
 
 	&__active-chat {

@@ -46,10 +46,10 @@ export default class HTTPTransport {
 		return this.request(url, { ...options, method: METHODS.POST })
 	}
 
-	delete(
+	delete<T extends any>(
 		url: string,
 		options: OptionsWithoutMethod = {}
-	): Promise<XMLHttpRequest> {
+	): Promise<T> {
 		return this.request(url, { ...options, method: METHODS.DELETE })
 	}
 
@@ -75,7 +75,6 @@ export default class HTTPTransport {
 				method ===
 					(METHODS.GET ||
 						METHODS.POST ||
-						METHODS.DELETE ||
 						(!(data instanceof FormData) && METHODS.PUT)) ||
 				!data
 			) {
@@ -83,6 +82,9 @@ export default class HTTPTransport {
 				xhr.send()
 			} else if (data instanceof FormData && METHODS.PUT) {
 				xhr.send(data)
+			} else if (METHODS.DELETE) {
+				xhr.setRequestHeader('Content-type', 'application/json')
+				xhr.send(JSON.stringify(data))
 			} else {
 				xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8')
 				xhr.send(JSON.stringify(data))

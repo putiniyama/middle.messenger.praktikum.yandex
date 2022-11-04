@@ -4,14 +4,13 @@ import './chat.css'
 interface ChatProps {
 	title: string
 	text: string
-	onClick: string
 	id: number
 }
 
 export class Chat extends Block {
 	static componentName = 'Chat'
 	constructor(props: ChatProps) {
-		super({ ...props, events: { click: props.onClick } })
+		super({ ...props })
 	}
 
 	protected render(): string {

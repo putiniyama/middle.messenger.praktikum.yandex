@@ -34,6 +34,90 @@ type ChatAdd = {
 	title: string
 }
 
+type ChatId = {
+	chatId: number
+}
+
+type ChatUser = {
+	users: number[]
+	chatId: number
+}
+
+export const chatGetToken = async (
+	dispatch: Dispatch<AppState>,
+	state: AppState,
+	action: ChatId
+) => {
+	dispatch({ isLoading: true })
+	const response = await authAPI.chatGetToken(action)
+	if (apiHasError(response)) {
+		dispatch({ isLoading: false, loginFormError: response.reason })
+		return
+	}
+	dispatch({ isLoading: false })
+}
+
+export const chatDeleteUser = async (
+	dispatch: Dispatch<AppState>,
+	state: AppState,
+	action: ChatUser
+) => {
+	dispatch({ isLoading: true })
+	const response = await authAPI.chatDeleteUser(action)
+	if (apiHasError(response)) {
+		dispatch({ isLoading: false, loginFormError: response.reason })
+		return
+	}
+	dispatch({ isLoading: false })
+}
+
+export const chatAddUser = async (
+	dispatch: Dispatch<AppState>,
+	state: AppState,
+	action: ChatUser
+) => {
+	dispatch({ isLoading: true })
+	const response = await authAPI.chatAddUser(action)
+	if (apiHasError(response)) {
+		dispatch({ isLoading: false, loginFormError: response.reason })
+		return
+	}
+	dispatch({ isLoading: false })
+}
+
+export const chatGetUser = async (
+	dispatch: Dispatch<AppState>,
+	state: AppState,
+	action: ChatId
+) => {
+	dispatch({ isLoading: true })
+	const response = await authAPI.chatGetUser(action)
+	if (apiHasError(response)) {
+		dispatch({ isLoading: false, loginFormError: response.reason })
+		return
+	}
+	dispatch({ isLoading: false })
+}
+
+export const chatDelete = async (
+	dispatch: Dispatch<AppState>,
+	state: AppState,
+	action: ChatId
+) => {
+	dispatch({ isLoading: true })
+	const response = await authAPI.chatDelete(action)
+	if (apiHasError(response)) {
+		dispatch({ isLoading: false, loginFormError: response.reason })
+		return
+	}
+	const responseChats = await authAPI.chats()
+	if (apiHasError(responseChats)) {
+		dispatch({ isLoading: false, loginFormError: responseChats.reason })
+		return
+	}
+	dispatch({ isLoading: false, loginFormError: null, chats: responseChats })
+}
+
 export const chatAdd = async (
 	dispatch: Dispatch<AppState>,
 	state: AppState,
