@@ -2,7 +2,7 @@
 @import '../../variables.css';
 
 .general {
-	&	__item {
+	&__item {
 		position: relative;
 		display: flex;
 		width: 270px;
