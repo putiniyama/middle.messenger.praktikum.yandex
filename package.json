@@ -3,7 +3,7 @@
 	"version": "1.0.0",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"build": "parcel src/index.html --no-cache",
+		"build": "parcel build src/index.html --no-cache --public-url ./ ",
 		"start": "parcel build src/index.html --no-cache --public-url ./ && node ./server.js",
 		"eslint": "eslint src/**/*.ts --fix",
 		"stylelint": "stylelint **/*.css --fix"
