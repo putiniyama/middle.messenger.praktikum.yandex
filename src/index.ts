@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	window.store = store
 
 	//console.log(router, store)
-
+	var asd = 'asd';
 	renderDOM(new SplashScreen({}))
 
 	store.on('changed', (prevState, nextState) => {
