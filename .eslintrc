@@ -3,5 +3,6 @@
 	"rules": {
 		"max-len": [2, 100],
 		"max-params": [2, 3],
+		"indent": ["error", 4]
 	}
 }
