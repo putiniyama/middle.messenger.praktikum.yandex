@@ -43,6 +43,7 @@
 	},
 	"dependencies": {
 		"babel-core": "6.26.3",
+		"eslint-plugin-import": "^2.26.0",
 		"nanoid": "4.0.0",
 		"typescript-eslint": "^0.0.1-alpha.0"
 	},
