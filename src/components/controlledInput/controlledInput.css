@@ -1,6 +1,9 @@
 .controlled-input {
   max-width: 300px;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .controlled-input-message {

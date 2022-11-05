@@ -16,12 +16,10 @@ export class Chat extends Block {
 	protected render(): string {
 		return `
 			<li class="general__item" id={{id}} >
-					<div class="general__item-photo">
-							<img src="#" alt="gia" class="general__item-avatar">
-					</div>
+					<img src="https://klike.net/uploads/posts/2019-03/1551511801_1.jpg" alt="gia" class="general__item-avatar">
 					<div class="general__item-info">
 							<p class="general__item-title">{{title}}</p>
-							<p class="general__item-text">{{text}}</p>
+							<p class="general__item-text">Последнее сообщение</p>
 							<img src="https://cdn-icons-png.flaticon.com/512/3156/3156999.png" class="general__item-wastebasket">
 					</div>
 			</li>

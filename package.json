@@ -4,6 +4,7 @@
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"build": "parcel build src/index.html --no-cache --public-url ./ ",
+		"go": "parcel src/index.html",
 		"start": "parcel build src/index.html --no-cache --public-url ./ && node ./server.js",
 		"eslint": "eslint src/**/*.ts --fix",
 		"stylelint": "stylelint src/**/*.css --fix"

@@ -135,7 +135,7 @@ export class SignUpPageN extends Block<SignupPageProps> {
 				placeholder="Телефон"
 				error=error
 			}}}
-			{{{Button class="sign-btn" text="Зарегистрироваться" onClick=onSignUp}}}
+			{{{Button class="general__btn" text="Зарегистрироваться" onClick=onSignUp}}}
       </div>
     </div>
     `
