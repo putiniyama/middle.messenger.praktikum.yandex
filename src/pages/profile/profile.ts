@@ -47,7 +47,11 @@ export class ProfilePageN extends Block<ProfilePageProps> {
 						})
 						this.refs.buttonPassRef.element.style.display = 'block'
 						this.refs.buttonChatRef.element.style.display = 'block'
-						this.props.store.dispatch(changeProfile, profileData)
+						try {
+							this.props.store.dispatch(changeProfile, profileData)
+						} catch (err) {
+							console.log(err)
+						}
 					}
 				}
 			},
@@ -57,7 +61,11 @@ export class ProfilePageN extends Block<ProfilePageProps> {
 				if (avatar.files!.length > 0) {
 					let formData = new FormData()
 					formData.append('avatar', avatar.files![0])
-					this.props.store.dispatch(changeAvatar, formData)
+					try {
+						this.props.store.dispatch(changeAvatar, formData)
+					} catch (err) {
+						console.log(err)
+					}
 				} else {
 					console.log('Файл не выбран!!')
 				}

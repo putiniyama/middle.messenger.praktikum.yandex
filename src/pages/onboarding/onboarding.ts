@@ -48,7 +48,11 @@ export class OnboardingPageN extends Block<OnboardingPageProps> {
 	}
 
 	async onLogout() {
-		this.props.store.dispatch(logout)
+		try {
+			this.props.store.dispatch(logout)
+		} catch (error) {
+			console.log(error)
+		}
 		this.onNavigateNext()
 	}
 

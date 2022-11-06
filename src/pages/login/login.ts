@@ -55,7 +55,11 @@ export class LoginPageN extends Block<LoginPageProps> {
 				Object.assign(loginData, res)
 			})
 
-			this.props.store.dispatch(login, loginData)
+			try {
+				this.props.store.dispatch(login, loginData)
+			} catch (error) {
+				console.log(error)
+			}
 		}
 	}
 

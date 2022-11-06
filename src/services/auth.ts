@@ -43,11 +43,9 @@ type ChatUser = {
 	chatId: number
 }
 
-export const chatGetToken = async (
-	dispatch: Dispatch<AppState>,
-	state: AppState,
-	action: ChatId
-) => {
+type DispatchStateHandler<TAction> = (dispatch: Dispatch<AppState>, state: AppState, action: TAction) => Promise<void>
+
+export const chatGetToken: DispatchStateHandler<ChatId> = async (dispatch, state, action) => {
 	dispatch({ isLoading: true })
 	const response = await authAPI.chatGetToken(action)
 	if (apiHasError(response)) {
@@ -57,11 +55,7 @@ export const chatGetToken = async (
 	dispatch({ isLoading: false })
 }
 
-export const chatDeleteUser = async (
-	dispatch: Dispatch<AppState>,
-	state: AppState,
-	action: ChatUser
-) => {
+export const chatDeleteUser: DispatchStateHandler<ChatUser> = async (dispatch, state, action) => {
 	dispatch({ isLoading: true })
 	const response = await authAPI.chatDeleteUser(action)
 	if (apiHasError(response)) {
@@ -71,11 +65,7 @@ export const chatDeleteUser = async (
 	dispatch({ isLoading: false })
 }
 
-export const chatAddUser = async (
-	dispatch: Dispatch<AppState>,
-	state: AppState,
-	action: ChatUser
-) => {
+export const chatAddUser: DispatchStateHandler<ChatUser> = async (dispatch, state, action) => {
 	dispatch({ isLoading: true })
 	const response = await authAPI.chatAddUser(action)
 	if (apiHasError(response)) {
@@ -85,11 +75,7 @@ export const chatAddUser = async (
 	dispatch({ isLoading: false })
 }
 
-export const chatGetUser = async (
-	dispatch: Dispatch<AppState>,
-	state: AppState,
-	action: ChatId
-) => {
+export const chatGetUser: DispatchStateHandler<ChatId> = async (dispatch, state, action) => {
 	dispatch({ isLoading: true })
 	const response = await authAPI.chatGetUser(action)
 	if (apiHasError(response)) {
@@ -99,11 +85,7 @@ export const chatGetUser = async (
 	dispatch({ isLoading: false })
 }
 
-export const chatDelete = async (
-	dispatch: Dispatch<AppState>,
-	state: AppState,
-	action: ChatId
-) => {
+export const chatDelete: DispatchStateHandler<ChatId> = async (dispatch, state, action) => {
 	dispatch({ isLoading: true })
 	const response = await authAPI.chatDelete(action)
 	if (apiHasError(response)) {
@@ -118,11 +100,7 @@ export const chatDelete = async (
 	dispatch({ isLoading: false, loginFormError: null, chats: responseChats })
 }
 
-export const chatAdd = async (
-	dispatch: Dispatch<AppState>,
-	state: AppState,
-	action: ChatAdd
-) => {
+export const chatAdd: DispatchStateHandler<ChatAdd> = async (dispatch, state, action) => {
 	dispatch({ isLoading: true })
 	const response = await authAPI.chatAdd(action)
 	if (apiHasError(response)) {
@@ -155,52 +133,32 @@ export const chats = async (dispatch: Dispatch<AppState>) => {
 	dispatch({ chats: responseChats })
 }
 
-export const changePassword = async (
-	dispatch: Dispatch<AppState>,
-	state: AppState,
-	action: ChangePassword
-) => {
+export const changePassword: DispatchStateHandler<ChangePassword> = async (dispatch, state, action) => {
 	dispatch({ isLoading: true })
 	const response = await authAPI.changePassword(action)
 	console.log(response)
 	dataUpdate(response, dispatch)
 }
 
-export const changeAvatar = async (
-	dispatch: Dispatch<AppState>,
-	state: AppState,
-	action: FormData
-) => {
+export const changeAvatar: DispatchStateHandler<FormData> = async (dispatch, state, action) => {
 	dispatch({ isLoading: true })
 	const response = await authAPI.changeAvatar(action)
 	dataUpdate(response, dispatch)
 }
 
-export const changeProfile = async (
-	dispatch: Dispatch<AppState>,
-	state: AppState,
-	action: ChahgeProfile
-) => {
+export const changeProfile: DispatchStateHandler<ChahgeProfile> = async (dispatch, state, action) => {
 	dispatch({ isLoading: true })
 	const response = await authAPI.changeProfile(action)
 	dataUpdate(response, dispatch)
 }
 
-export const signup = async (
-	dispatch: Dispatch<AppState>,
-	state: AppState,
-	action: SignUp
-) => {
+export const signup: DispatchStateHandler<SignUp> = async (dispatch, state, action) => {
 	dispatch({ isLoading: true })
 	const response = await authAPI.signup(action)
 	dataUpdate(response, dispatch)
 }
 
-export const login = async (
-	dispatch: Dispatch<AppState>,
-	state: AppState,
-	action: LoginPayload
-) => {
+export const login: DispatchStateHandler<LoginPayload> = async (dispatch, state, action) => {
 	dispatch({ isLoading: true })
 
 	const response = await authAPI.login(action)

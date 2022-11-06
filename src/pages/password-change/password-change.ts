@@ -53,7 +53,11 @@ export class PasswordPageN extends Block<PasswordPageProps> {
 					passwords.newPassword === item.value
 				) {
 					console.log('Пароль успешно изменен')
-					this.props.store.dispatch(changePassword, passwords)
+					try {
+						this.props.store.dispatch(changePassword, passwords)
+					} catch (err) {
+						console.log(err)
+					}
 				} else {
 					this.state.error = 'Пароли не совпадают!'
 				}

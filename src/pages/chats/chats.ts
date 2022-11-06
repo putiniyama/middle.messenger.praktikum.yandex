@@ -46,39 +46,68 @@ export class ChatsPageN extends Block<ChatsPageProps> {
 				const elemChat = e.target as HTMLElement
 				const elemIdChat = parseInt(elemChat.closest('li')!.id)
 				if (elemChat.className === 'general__item-wastebasket') {
-					this.props.store.dispatch(chatDelete, {
+					try {
+						this.props.store.dispatch(chatDelete, {
 						chatId: elemIdChat,
 					})
+					} catch (error) {
+						console.log(error)
+					}
 				} else if (elemChat.className != 'general__item-wastebasket') {
 					this.state.chatActiveId = elemIdChat
 					//делаем запрос на пользователей в чате
-					this.props.store.dispatch(chatGetUser, elemIdChat)
+					try {
+						this.props.store.dispatch(chatGetUser, elemIdChat)
+					} catch (error) {
+						console.log(error)
+					}
 					//делаем запрос на токен
-					this.state.token = await authAPI.chatGetToken(elemIdChat)
+					try {
+						this.state.token = await authAPI.chatGetToken(elemIdChat)
+					} catch (error) {
+						console.log(error)
+					}
 					//работаем  вебсокетами
 					this.state.webObj = {
 						userId: this.props.store.getState().user?.id!,
 						chatId: elemIdChat,
 						token: this.state.token.token,
 					}
+					
 					this.state.socket = new WebSocket(
 						`wss://ya-praktikum.tech/ws/chats/${this.state.webObj.userId}/${this.state.webObj.chatId}/${this.state.webObj.token}`
 					)
-					this.state.socket.addEventListener('open', () => {
+
+					if (this.state.socket.onerror) {
+						console.log("error websocket")
+					}
+					else {
+						this.state.socket.addEventListener('open', () => {
 						console.log('Соединение установлено')
-						this.state.socket.send(
+						try {
+							this.state.socket.send(
 							JSON.stringify({
 								content: '0',
 								type: 'get old',
 							})
 						)
+						} catch (error) {
+							console.log(error)
+						}
 						this.props.store.dispatch({ isLoading: true })
 					})
 
 					this.state.socket.addEventListener('message', event => {
-						this.state.messages = JSON.parse(event.data)
+						try {
+							this.state.messages = JSON.parse(event.data)
+						} catch (error) {
+							console.log(this.state.messages = JSON.parse(event.data))
+						}
 						this.props.store.dispatch({ isLoading: false })
 					})
+					}
+
+					
 					
 				}
 			},
@@ -115,7 +144,11 @@ export class ChatsPageN extends Block<ChatsPageProps> {
 					users: [parseInt(inputAddUser.value)],
 					chatId: this.state.chatActiveId,
 				}
-				this.props.store.dispatch(chatAddUser, requestObjAddUser)
+				try {
+					this.props.store.dispatch(chatAddUser, requestObjAddUser)
+				} catch (error) {
+					console.log(error)
+				}
 			},
 
 			onDeleteUserFromChat: () => {
@@ -126,7 +159,11 @@ export class ChatsPageN extends Block<ChatsPageProps> {
 					users: [parseInt(inputDeleteUser.value)],
 					chatId: this.state.chatActiveId,
 				}
-				this.props.store.dispatch(chatDeleteUser, requestObjAddUser)
+				try {
+					this.props.store.dispatch(chatDeleteUser, requestObjAddUser)
+				} catch (error) {
+					console.log(error)
+				}
 			},
 
 			onSend: () => {
@@ -139,9 +176,10 @@ export class ChatsPageN extends Block<ChatsPageProps> {
 				const inputName = inputMessage.getAttribute('name') as string
 				const error = onEvents(inputMessage, inputName)
 				refErrors(inputName, this, error)
-				if (!error) {
+				if (!error && this.state.chatActiveId) {
 					errors.push(null)
-					this.state.socket.send(
+					try {
+						this.state.socket.send(
 						JSON.stringify({
 							content: inputMessage.value,
 							type: 'message',
@@ -154,6 +192,9 @@ export class ChatsPageN extends Block<ChatsPageProps> {
 							type: 'get old',
 						})
 					)
+					} catch (error) {
+						console.log(error)
+					}
 				}
 			},
 		})
@@ -172,9 +213,13 @@ export class ChatsPageN extends Block<ChatsPageProps> {
 					'.general__input'
 				) as HTMLInputElement
 				if (inputChatTitle.value.length > 0) {
-					this.props.store.dispatch(chatAdd, {
+					try {
+						this.props.store.dispatch(chatAdd, {
 						title: inputChatTitle.value,
 					})
+					} catch (error) {
+						console.log(error)
+					}
 					const chatList = this.props.store.getState().chats
 					const nextState = {
 						chats: { ...chatList },

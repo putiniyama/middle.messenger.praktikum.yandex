@@ -9,11 +9,11 @@ export async function initApp(dispatch: Dispatch<AppState>) {
 
 	try {
 		const response = await authAPI.me()
-		const chatsResponse = await authAPI.chats()
-
 		if (apiHasError(response)) {
 			return
 		}
+		
+		const chatsResponse = await authAPI.chats()
 
 		dispatch({ user: transformUser(response as UserDTO), chats: chatsResponse })
 	} catch (err) {

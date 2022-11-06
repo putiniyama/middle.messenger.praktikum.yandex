@@ -61,7 +61,11 @@ export class SignUpPageN extends Block<SignupPageProps> {
 
 			console.log(this.state)
 
-			this.props.store.dispatch(signup, signUpData)
+			try {
+				this.props.store.dispatch(signup, signUpData)		
+			} catch (err) {
+				console.log(err)
+			}
 		}
 	}
 
