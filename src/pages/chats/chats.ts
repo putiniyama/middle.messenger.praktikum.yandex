@@ -50,7 +50,6 @@ export class ChatsPageN extends Block<ChatsPageProps> {
 						chatId: elemIdChat,
 					})
 				} else if (elemChat.className != 'general__item-wastebasket') {
-					console.log(elemIdChat)
 					this.state.chatActiveId = elemIdChat
 					//делаем запрос на пользователей в чате
 					this.props.store.dispatch(chatGetUser, elemIdChat)
@@ -78,7 +77,6 @@ export class ChatsPageN extends Block<ChatsPageProps> {
 
 					this.state.socket.addEventListener('message', event => {
 						this.state.messages = JSON.parse(event.data)
-						console.log(this.state.messages)
 						this.props.store.dispatch({ isLoading: false })
 					})
 					
@@ -90,7 +88,6 @@ export class ChatsPageN extends Block<ChatsPageProps> {
 				const addChatModal = this.element!.querySelector('.general__addchat')
 
 				btnAddChat!.addEventListener('click', () => {
-					console.log(addChatModal)
 					addChatModal!.style.display = 'flex'
 				})
 
@@ -175,7 +172,6 @@ export class ChatsPageN extends Block<ChatsPageProps> {
 					'.general__input'
 				) as HTMLInputElement
 				if (inputChatTitle.value.length > 0) {
-					console.log(inputChatTitle.value)
 					this.props.store.dispatch(chatAdd, {
 						title: inputChatTitle.value,
 					})
@@ -232,7 +228,7 @@ export class ChatsPageN extends Block<ChatsPageProps> {
 						{{/if}}
 						</div>
 					</div>
-					<div class="general__send">
+					<form class="general__send">
 						{{{ControlledInput 
 							class-controled="controlled-input controlled-input-message"
 							name="message"
@@ -246,10 +242,10 @@ export class ChatsPageN extends Block<ChatsPageProps> {
 						}}}
 						{{#if error}}{{error}}{{/if}}
 						{{{Button class="general__btn" text="Отправить" onClick=onSend}}}
-					</div>
+					</form>
 				</div>
 				
-				<div class="general__addchat">
+				<form class="general__addchat">
 					<p class="general__addchat-title">Название чата</p>
 					{{{ControlledInput 
 						class-controled="general__chat-input"
@@ -263,7 +259,7 @@ export class ChatsPageN extends Block<ChatsPageProps> {
 					}}}
 					{{{Button class="general__btn" onClick=onCreate text="ОК"}}}
 					{{{Button class="general__btn" onClick=onCancel text="Отмена"}}}
-				</div>
+				</form>
 				
 
 				<div class="general__chatdots">

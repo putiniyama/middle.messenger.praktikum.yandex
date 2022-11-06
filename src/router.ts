@@ -42,7 +42,6 @@ const routes = [
 export function initRouter(router: CoreRouter, store: Store<AppState>) {
 	routes.forEach(route => {
 		router.use(route.path, () => {
-			//console.log(route)
 			const isAuthorized = Boolean(store.getState().user)
 			const currentScreen = Boolean(store.getState().screen)
 
@@ -67,9 +66,7 @@ export function initRouter(router: CoreRouter, store: Store<AppState>) {
 		}
 
 		if (prevState.screen !== nextState.screen) {
-			//console.log(nextState.screen)
 			const Page = getScreenComponent(nextState.screen)
-			//console.log(Page.name)
 			renderDOM(new Page({}))
 			document.title = `App / ${Page.componentName}`
 		}

@@ -1,5 +1,3 @@
-import input from 'components/input'
-import { validateForm, ValidateType } from 'helpers/validateForm'
 import Block from 'core/Block'
 import { onEvents } from 'helpers/events'
 

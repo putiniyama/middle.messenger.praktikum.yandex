@@ -1,7 +1,5 @@
-import { request } from 'core'
 import { APIError, UserDTO } from './types'
 import HTTPTransport from 'core/apiRequest'
-import { title } from 'process'
 
 type LoginRequestData = {
 	login: string

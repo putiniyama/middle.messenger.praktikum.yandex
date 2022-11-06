@@ -74,8 +74,8 @@
     display: flex;
     width: 80%;
     justify-content: space-between;
-    position: absolute;
-    bottom: 10px;
+    position: sticky;
+    bottom: 0;
   }
 
   &__send-message {
@@ -104,15 +104,14 @@
     display: flex;
     flex-direction: column-reverse;
     gap: 15px;
-    overflow-y: auto;
     height: 600px;
     margin-bottom: 20px;
+    overflow-y: auto;
   }
 
   &__chat-window {
     position: relative;
     display: flex;
-    height: 100%;
     flex-direction: column;
     justify-content: end;
   }
@@ -154,9 +153,17 @@
   &__active-chat {
     display: flex;
     width: 70%;
+    height: 95vh;
     flex-direction: column;
     justify-content: space-between;
     position: relative;
     padding-bottom: 50px;
+  }
+
+  &__head {
+    position: sticky;
+    top: 0;
+    height: 100px;
+    border-bottom: 1px solid #000;
   }
 }

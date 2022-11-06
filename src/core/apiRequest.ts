@@ -20,38 +20,25 @@ type OptionsWithoutMethod = Omit<Options, 'method'>
  type OptionsWithoutMethod = { data?: any };
 */
 
+type HTTPMethod = <T extends any>(url: string, options?: OptionsWithoutMethod) => Promise<T>
+
 const path = `${process.env.API_ENDPOINT}/`
 export default class HTTPTransport {
-	get<T extends any>(
-		url: string
-		//options: OptionsWithoutMethod = {}
-	): Promise<T> {
-		return this.request(url, {
-			//...options,
-			method: METHODS.GET,
-		})
-	}
+	get: HTTPMethod = (url, options = {}) => (
+    this.request(url, {...options, method: METHODS.GET})
+  )
 
-	put<T extends any>(
-		url: string,
-		options: OptionsWithoutMethod = {}
-	): Promise<T> {
-		return this.request(url, { ...options, method: METHODS.PUT })
-	}
+	put: HTTPMethod = (url, options = {}) => (
+    this.request(url, {...options, method: METHODS.PUT})
+  )
 
-	post<T extends any>(
-		url: string,
-		options: OptionsWithoutMethod = {}
-	): Promise<T> {
-		return this.request(url, { ...options, method: METHODS.POST })
-	}
+	post: HTTPMethod = (url, options = {}) => (
+    this.request(url, {...options, method: METHODS.POST})
+  )
 
-	delete<T extends any>(
-		url: string,
-		options: OptionsWithoutMethod = {}
-	): Promise<T> {
-		return this.request(url, { ...options, method: METHODS.DELETE })
-	}
+	delete: HTTPMethod = (url, options = {}) => (
+    this.request(url, {...options, method: METHODS.DELETE})
+  )
 
 	request(url: string, options: Options): any {
 		const { method, data, title } = options

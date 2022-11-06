@@ -6,6 +6,7 @@ import { changeProfile, changeAvatar } from 'services/auth'
 type ProfilePageProps = {
 	router: CoreRouter
 	store: Store<AppState>
+	onSubmit: () => any
 }
 export class ProfilePageN extends Block<ProfilePageProps> {
 	static componentName = 'ProfilePage'
@@ -47,7 +48,6 @@ export class ProfilePageN extends Block<ProfilePageProps> {
 						this.refs.buttonPassRef.element.style.display = 'block'
 						this.refs.buttonChatRef.element.style.display = 'block'
 						this.props.store.dispatch(changeProfile, profileData)
-						console.log(profileData)
 					}
 				}
 			},
@@ -77,103 +77,107 @@ export class ProfilePageN extends Block<ProfilePageProps> {
 		const avatar = `https://ya-praktikum.tech/api/v2/resources/${user?.avatar}`
 		return `
     <div class="profile">
-    <div class="profile__wrapper">
+    	<div class="profile__wrapper">
+				<label class="profile__avatar">
+					<input id="ava13" type="file">	 
+					<img src="${avatar}" alt="avatar" class="profile__photo" ></img>
+				</label>
 
-			<label class="profile__avatar">
-				<input id="ava13" type="file">	 
-						<img src="${avatar}" class="profile__photo" ></img>
-						
-			</label>
-
-			<div class="profile__name">Алексей</div>
-
-
-        <div class="profile__settings">
-            <div class="profile__title">Данные</div>
-            <div class="profile__items">
-                {{{ControlledInput 
-									class-controled="controlled-input"
-									class="input"
-									ref="firstNameInputRef"
-									onInput=onInput
-									onFocus=onFocus
-									type="text"
-									name="first_name"
-									placeholder="Имя"
-									value="${user?.firstName}"
-									
-								}}}
-								{{{ControlledInput 
-									class-controled="controlled-input"
-									class="input"
-									ref="secondNameInputRef"
-									onInput=onInput
-									onFocus=onFocus
-									type="text"
-									name="second_name"
-									placeholder="Фамилия"
-									value="${user?.secondName}"
-								}}}
-								{{{ControlledInput 
-									class-controled="controlled-input"
-									class="input"
-									ref="loginInputRef"
-									onInput=onInput
-									onFocus=onFocus
-									type="text"
-									name="login"
-									placeholder="Логин"
-									value="${user?.login}"
-								}}}
-								{{{ControlledInput 
-									class-controled="controlled-input"
-									class="input"
-									ref="emailInputRef"
-									onInput=onInput
-									onFocus=onFocus
-									type="text"
-									name="email"
-									placeholder="Почта"
-									value="${user?.email}"
-								}}}
-								{{{ControlledInput 
-									class-controled="controlled-input"
-									class="input"
-									ref="nameViewInputRef"
-									onInput=onInput
-									onFocus=onFocus
-									type="text"
-									name="display_name"
-									placeholder="Отображающееся имя"
-									value="${user?.displayName ? user?.displayName : ''}"
-								
-								}}}
-								{{{ControlledInput 
-									class-controled="controlled-input"
-									class="input"
-									ref="phoneInputRef"
-									onInput=onInput
-									onFocus=onFocus
-									type="text"
-									name="phone"
-									placeholder="Телефон"
-									value="${user?.phone}"
-								}}}
-
-            </div>
-            <div class="profile__btns">
-                {{{Button ref="buttonRef" name="data-change" class="sign-btn" text="Изменить данные" onClick=onSubmit}}}
-								{{{Button ref="buttonPassRef" name="password-change" class="sign-btn" text="Изменить пароль" onClick=onChangePassword}}}
-								{{{Button ref="buttonAvaRef" name="avatar-change" class="sign-btn" text="Сохранить аватар" onClick=onSetAvatar}}}
-								{{{Button ref="buttonChatRef" name="profile-chat" class="sign-btn" text="Чат" onClick=onChat}}}
-            </div>
-        </div>
-
-    </div>
-</div>
+				<div class="profile__name">Алексей</div>
+				<form action='#' class="profile__settings">
+					<div class="profile__title">Данные</div>
+				<div  class='profile__items' >
+				{{{ControlledInput 
+					class-controled="controlled-input"
+					class="input"
+					ref="firstNameInputRef"
+					onInput=onInput
+					onFocus=onFocus
+					type="text"
+					name="first_name"
+					placeholder="Имя"
+					value="${user?.firstName}"
+				}}}
+				{{{ControlledInput 
+					class-controled="controlled-input"
+					class="input"
+					ref="secondNameInputRef"
+					onInput=onInput
+					onFocus=onFocus
+					type="text"
+					name="second_name"
+					placeholder="Фамилия"
+					value="${user?.secondName}"
+				}}}
+				{{{ControlledInput 
+					class-controled="controlled-input"
+					class="input"
+					ref="loginInputRef"
+					onInput=onInput
+					onFocus=onFocus
+					type="text"
+					name="login"
+					placeholder="Логин"
+					value="${user?.login}"
+				}}}
+				{{{ControlledInput 
+					class-controled="controlled-input"
+					class="input"
+					ref="emailInputRef"
+					onInput=onInput
+					onFocus=onFocus
+					type="text"
+					name="email"
+					placeholder="Почта"
+					value="${user?.email}"
+				}}}
+				{{{ControlledInput 
+					class-controled="controlled-input"
+					class="input"
+					ref="nameViewInputRef"
+					onInput=onInput
+					onFocus=onFocus
+					type="text"
+					name="display_name"
+					placeholder="Отображающееся имя"
+					value="${user?.displayName ? user?.displayName : ''}"
+				}}}
+				{{{ControlledInput 
+					class-controled="controlled-input"
+					class="input"
+					ref="phoneInputRef"
+					onInput=onInput
+					onFocus=onFocus
+					type="text"
+					name="phone"
+					placeholder="Телефон"
+					value="${user?.phone}"
+				}}}
+				
+			</div>
+			<div class="profile__btns">
+					{{{Button ref="buttonRef" name="data-change" class="general__btn sign-btn" text="Изменить данные" onClick=onSubmit}}}
+					{{{Button ref="buttonPassRef" name="password-change" class="general__btn sign-btn" text="Изменить пароль" onClick=onChangePassword}}}
+					{{{Button ref="buttonAvaRef" name="avatar-change" class="general__btn  sign-btn" text="Сохранить аватар" onClick=onSetAvatar}}}
+					{{{Button ref="buttonChatRef" name="profile-chat" class="general__btn  sign-btn" text="Чат" onClick=onChat}}}
+				</div>
+				</form>
+    	</div>
+		</div>
     `
 	}
 }
 
 const ProfilePage = withRouter(withStore(ProfilePageN))
 export { ProfilePage }
+
+
+// <form action='#' class="profile__items" id="form1" onsubmit="onSubmit()">
+							
+
+							
+							
+							
+							
+// 					</form>
+           

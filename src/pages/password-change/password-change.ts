@@ -58,7 +58,6 @@ export class PasswordPageN extends Block<PasswordPageProps> {
 					this.state.error = 'Пароли не совпадают!'
 				}
 			})
-			console.log(passwords)
 		}
 	}
 
@@ -71,11 +70,11 @@ export class PasswordPageN extends Block<PasswordPageProps> {
     <div class="profile">
     <div class="profile__wrapper">
         <label class="profile__avatar">
-						<img src="${avatar}" class="profile__photo" ></img>
+						<img src="${avatar}" alt="avatar" class="profile__photo" ></img>
 				</label>
 				<div class="profile__name">Алексей</div>
         
-        <div class="profile__settings">
+        <form action="#" class="profile__settings">
             <div class="profile__title">Данные</div>
             <div class="profile__items">
                {{{ControlledInput 
@@ -111,14 +110,13 @@ export class PasswordPageN extends Block<PasswordPageProps> {
 									placeholder="Новый пароль"
 									error="${error ? error : ''}"
 								}}}
-								
 
             </div>
             <div class="profile__btns">
-								{{{Button name="password_save" class="sign-btn" text="Сохранить пароль" onClick=onSavePass}}}
-								{{{Button name="password_back" class="sign-btn" text="Назад" onClick=onBack}}}
+								{{{Button name="password_save" class="general__btn sign-btn" text="Сохранить пароль" onClick=onSavePass}}}
+								{{{Button name="password_back" class="general__btn sign-btn" text="Назад" onClick=onBack}}}
             </div>
-        </div>
+        </form>
 
     </div>
 </div>
