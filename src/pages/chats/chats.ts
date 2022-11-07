@@ -14,12 +14,8 @@ import {
 	chatGetToken,
 	chats,
 } from 'services/auth'
-import { diffObjectsDeep } from 'utils'
 import cloneDeep from 'utils/cloneDeep'
-import { mergeDeep } from 'utils'
-import EventBus from 'core/EventBus'
 import { authAPI } from 'api/auth'
-import { WebSocketConnect } from 'api/webSocket'
 
 type ChatsPageProps = {
 	router: CoreRouter
@@ -33,12 +29,16 @@ type ChatsPageProps = {
 	getToken: () => any
 	messageList: () => any
 	onSend: () => any
+	onAddChat: () => any
+	onCancel: () => void
+	onDots: () => void
 }
 
 export class ChatsPageN extends Block<ChatsPageProps> {
 	static componentName = 'ChatsPage'
 	constructor(props: ChatsPageProps) {
 		super(props)
+		
 		this.setProps({
 			chatsList: () => cloneDeep(this.props.store.getState().chats!),
 			messageList: () => cloneDeep(this.state.messages),
@@ -46,78 +46,140 @@ export class ChatsPageN extends Block<ChatsPageProps> {
 				const elemChat = e.target as HTMLElement
 				const elemIdChat = parseInt(elemChat.closest('li')!.id)
 				if (elemChat.className === 'general__item-wastebasket') {
-					this.props.store.dispatch(chatDelete, {
+					try {
+						this.props.store.dispatch(chatDelete, {
 						chatId: elemIdChat,
 					})
+					} catch (error) {
+						console.log(error)
+					}
 				} else if (elemChat.className != 'general__item-wastebasket') {
-					console.log(elemIdChat)
 					this.state.chatActiveId = elemIdChat
 					//делаем запрос на пользователей в чате
-					this.props.store.dispatch(chatGetUser, elemIdChat)
+					try {
+						this.props.store.dispatch(chatGetUser, elemIdChat)
+					} catch (error) {
+						console.log(error)
+					}
 					//делаем запрос на токен
-					this.state.token = await authAPI.chatGetToken(elemIdChat)
+					try {
+						this.state.token = await authAPI.chatGetToken(elemIdChat)
+					} catch (error) {
+						console.log(error)
+					}
 					//работаем  вебсокетами
 					this.state.webObj = {
 						userId: this.props.store.getState().user?.id!,
 						chatId: elemIdChat,
 						token: this.state.token.token,
 					}
+					
 					this.state.socket = new WebSocket(
 						`wss://ya-praktikum.tech/ws/chats/${this.state.webObj.userId}/${this.state.webObj.chatId}/${this.state.webObj.token}`
 					)
-					this.state.socket.addEventListener('open', () => {
+
+					if (this.state.socket.onerror) {
+						console.log("error websocket")
+					}
+					else {
+						this.state.socket.addEventListener('open', () => {
 						console.log('Соединение установлено')
-						this.state.socket.send(
+						try {
+							this.state.socket.send(
 							JSON.stringify({
 								content: '0',
 								type: 'get old',
 							})
 						)
+						} catch (error) {
+							console.log(error)
+						}
 						this.props.store.dispatch({ isLoading: true })
 					})
 
 					this.state.socket.addEventListener('message', event => {
-						this.state.messages = JSON.parse(event.data)
-						console.log(this.state.messages)
+						try {
+							this.state.messages = JSON.parse(event.data)
+						} catch (error) {
+							console.log(this.state.messages = JSON.parse(event.data))
+						}
 						this.props.store.dispatch({ isLoading: false })
 					})
+					}
+
+					
+					
 				}
 			},
 
+			onAddChat: () => {
+				const btnAddChat = this.element!.querySelector('.general__addchat-btn')
+				const addChatModal = this.element!.querySelector('.general__addchat')
+
+				btnAddChat!.addEventListener('click', () => {
+					addChatModal!.style.display = 'flex'
+				})
+
+			},
+
+			onCancel: () => {
+				const addChatModal = this.element!.querySelector('.general__addchat')
+				const dotsModal = this.element!.querySelector('.general__chatdots')
+					addChatModal!.style.display = 'none'
+					dotsModal!.style.display = 'none'
+			},
+
+			onDots: () => {
+				const dotsModal = this.element!.querySelector('.general__chatdots')
+				dotsModal!.style.display = 'flex'
+			},
+
+
+
 			onAddUserChat: () => {
 				const inputAddUser = this.element!.querySelector(
-					'.general__input-add'
+					'.general__input-user'
 				) as HTMLInputElement
 				const requestObjAddUser = {
 					users: [parseInt(inputAddUser.value)],
 					chatId: this.state.chatActiveId,
 				}
-				this.props.store.dispatch(chatAddUser, requestObjAddUser)
+				try {
+					this.props.store.dispatch(chatAddUser, requestObjAddUser)
+				} catch (error) {
+					console.log(error)
+				}
 			},
 
 			onDeleteUserFromChat: () => {
 				const inputDeleteUser = this.element!.querySelector(
-					'.general__input-delete'
+					'.general__input-user'
 				) as HTMLInputElement
 				const requestObjAddUser = {
 					users: [parseInt(inputDeleteUser.value)],
 					chatId: this.state.chatActiveId,
 				}
-				this.props.store.dispatch(chatDeleteUser, requestObjAddUser)
+				try {
+					this.props.store.dispatch(chatDeleteUser, requestObjAddUser)
+				} catch (error) {
+					console.log(error)
+				}
 			},
 
 			onSend: () => {
 				event?.preventDefault()
 				let errors: null[] = []
+				
 				const inputMessage = <HTMLInputElement>(
 					this.element?.querySelector('.general__send-message')
 				)
 				const inputName = inputMessage.getAttribute('name') as string
 				const error = onEvents(inputMessage, inputName)
 				refErrors(inputName, this, error)
-				if (!error) {
+				if (!error && this.state.chatActiveId) {
 					errors.push(null)
-					this.state.socket.send(
+					try {
+						this.state.socket.send(
 						JSON.stringify({
 							content: inputMessage.value,
 							type: 'message',
@@ -130,6 +192,9 @@ export class ChatsPageN extends Block<ChatsPageProps> {
 							type: 'get old',
 						})
 					)
+					} catch (error) {
+						console.log(error)
+					}
 				}
 			},
 		})
@@ -147,19 +212,29 @@ export class ChatsPageN extends Block<ChatsPageProps> {
 				const inputChatTitle = this.element!.querySelector(
 					'.general__input'
 				) as HTMLInputElement
-				if (inputChatTitle.value) {
-					this.props.store.dispatch(chatAdd, {
+				if (inputChatTitle.value.length > 0) {
+					try {
+						this.props.store.dispatch(chatAdd, {
 						title: inputChatTitle.value,
 					})
+					} catch (error) {
+						console.log(error)
+					}
 					const chatList = this.props.store.getState().chats
 					const nextState = {
 						chats: { ...chatList },
 					}
 					this.setState(nextState)
 					this.state.errorChatTitle = ''
+					const addChatModal = this.element!.querySelector('.general__addchat')
+					addChatModal!.style.display = 'none'
 				} else {
 					this.state.errorChatTitle = 'ВВедите имя чата'
+					const addChatModal = this.element!.querySelector('.general__addchat')
+					addChatModal!.style.display = 'flex'
 				}
+					
+					
 			},
 			onProfile: () => {
 				this.props.router.go('/profile')
@@ -168,91 +243,87 @@ export class ChatsPageN extends Block<ChatsPageProps> {
 	}
 
 	render(): string {
+		
+		
 		return `
 			<div class="general">
-					<div class="general__chats" >
-						<div class="general__buttons">
-							<div class="general__create-chat">
-								{{{Button 
-										class="general__profile" onClick=onCreate text="Создать чат"}}}
-								{{{ControlledInput 
-									class-controled="controlled-input general__chat-input"
-									name="chat_title"
-									class="general__input"
-									type="text"
-									placeholder="Имя чата"
-									onFocus=onFocus
-									onInput=onInput
-									onBlur=onBlur
-									ref="messageInputRefTitle"
-									error=errorChatTitle
-								}}}
-							</div>
-							{{{Button	class="general__profile" onClick=onProfile text="Профиль"}}}
-						</div>
-						<input type="text" class="general__search" placeholder="Поиск">
-
+				<div class="general__chats" >
+					<div class="general__head-chat">
+						{{{Button class="general__btn general__addchat-btn" onClick=onAddChat text="Создать чат"}}}
+						{{{Button	class="general__profile" onClick=onProfile text="Профиль"}}}
+					</div>
+					<input type="text" class="general__search" placeholder="Поиск">
+					<div class="general__line"></div>
 					{{{ChatList onClick=onClickChat}}}
-
+				</div>
+				<div class="general__active-chat">
+					<div class="general__head">
+						{{{Button	class="general__dots" onClick=onDots}}}
+						<div class="general__name"></div>
+					</div>	
+					<div class="general__chat-window">
+						<p class="general__date"></p>
+						<div class="general__utils"></div>
+						<div class="general__correspondence">
+						{{#if messageList}}
+							{{#each messageList}}
+								<p class="general__message">{{content}}</p>
+								<p class="general__time"></p>
+							{{/each}}
+						{{/if}}
+						</div>
 					</div>
-					<div class="general__active-chat">
-							<div class="general__head">
-									<div class="general__name"></div>
-									{{{Button class="sign-btn" text="Добавить пользователя в чат ID" onClick=onAddUserChat}}}
-							{{{ControlledInput 
-									class-controled="controlled-input general__chat-input"
-									name="chat_add-user"
-									class="general__input-add"
-									type="text"
-									placeholder="ID пользователя"
-									onFocus=onFocus
-									onInput=onInput
-									onBlur=onBlur
-									ref="refIdUserAdd"
-								}}}
-							{{{Button class="sign-btn" text="Удалить пользователя из чата ID" onClick=onDeleteUserFromChat}}}		
-							{{{ControlledInput 
-									class-controled="controlled-input general__chat-input"
-									name="chat_delete-user"
-									class="general__input-delete"
-									type="text"
-									placeholder="ID пользователя"
-									onFocus=onFocus
-									onInput=onInput
-									onBlur=onBlur
-									ref="redIdUserDelete"
-								}}}
-									<div class="general__utils"></div>
-							</div>
-							<p class="general__date"></p>
+					<form class="general__send">
+						{{{ControlledInput 
+							class-controled="controlled-input controlled-input-message"
+							name="message"
+							class="general__send-message"
+							type="text"
+							placeholder="Введите сообщение"
+							onFocus=onFocus
+							onInput=onInput
+							onBlur=onBlur
+							ref="messageInputRef"
+						}}}
+						{{#if error}}{{error}}{{/if}}
+						{{{Button class="general__btn" text="Отправить" onClick=onSend}}}
+					</form>
+				</div>
+				
+				<form class="general__addchat">
+					<p class="general__addchat-title">Название чата</p>
+					{{{ControlledInput 
+						class-controled="general__chat-input"
+						name="chat_title"
+						class="general__input"
+						type="text"
+						placeholder="Имя чата"
+						onFocus=onFocus
+						onInput=onInput
+						onBlur=onBlur
+					}}}
+					{{{Button class="general__btn" onClick=onCreate text="ОК"}}}
+					{{{Button class="general__btn" onClick=onCancel text="Отмена"}}}
+				</form>
+				
 
-							
-								<div class="general__correspondence">
-								{{#if messageList}}
-									{{#each messageList}}
-										<p class="general__message">{{content}}</p>
-										<p class="general__time"></p>
-									{{/each}}
-								{{/if}}
-								</div>
-							
-
-							<div class="general__send">
-							{{{ControlledInput 
-								class-controled="controlled-input controlled-input-message"
-								name="message"
-								class="general__send-message"
-								type="text"
-								placeholder="Введите сообщение"
-								onFocus=onFocus
-								onInput=onInput
-								onBlur=onBlur
-								ref="messageInputRef"
-							}}}
-							{{#if error}}{{error}}{{/if}}
-							{{{Button class="sign-btn sign-btn-message" text="Отправить" onClick=onSend}}}
-							</div>
-					</div>
+				<div class="general__chatdots">
+					<p class="general__chatdots-title">Добавить/удалить пользователя</p>
+					{{{ControlledInput 
+							class-controled="controlled-input general__chat-input"
+							name="chat_add-user"
+							class="general__input general__input-user"
+							type="text"
+							placeholder="ID пользователя"
+							onFocus=onFocus
+							onInput=onInput
+							onBlur=onBlur
+							ref="refIdUserAdd"
+						}}}
+						{{{Button class="general__btn" text="Добавить пользователя" onClick=onAddUserChat}}}
+						{{{Button class="general__btn" text="Удалить пользователя" onClick=onDeleteUserFromChat}}}	
+						{{{Button class="general__btn" onClick=onCancel text="Отмена"}}}
+				</div>
 			</div>
 		`
 	}

@@ -30,17 +30,6 @@ function cloneDeep<T extends object = object>(obj: T) {
 
 export default cloneDeep
 
-// const objects = [{ a: 2, s: 'asd' }, 4]
-// const ob2 = {
-// 	asd: 2,
-// 	fdg: 5,
-// }
-
-// const deep = cloneDeep(objects)
-// //const deep = cloneDeep(ob2)
-// console.log(deep)
-// console.log(deep[0] === objects[0]) // => false
-//console.log(deep === ob2)
 
 export function isArray(value: unknown): value is [] {
 	return Array.isArray(value)

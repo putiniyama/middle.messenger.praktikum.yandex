@@ -48,7 +48,11 @@ export class OnboardingPageN extends Block<OnboardingPageProps> {
 	}
 
 	async onLogout() {
-		this.props.store.dispatch(logout)
+		try {
+			this.props.store.dispatch(logout)
+		} catch (error) {
+			console.log(error)
+		}
 		this.onNavigateNext()
 	}
 
@@ -60,12 +64,12 @@ export class OnboardingPageN extends Block<OnboardingPageProps> {
       <div class="authorization__wrapper">
 			<h1 class='authorization__title'>Чат</h1>	
 			{{#if ${user != null}}}
-				{{{Button class="sign-btn" text="Чат" onClick=onNavigateNext}}}
-				{{{Button class="sign-btn" text="Профиль" onClick=onNavigateProfile}}} 		
-				{{{Button class="sign-btn" text="Выйти" onClick=onLogout}}} 		 		
+				{{{Button class="sign-btn general__btn" text="Чат" onClick=onNavigateNext}}}
+				{{{Button class="sign-btn general__btn" text="Профиль" onClick=onNavigateProfile}}} 		
+				{{{Button class="sign-btn general__btn" text="Выйти" onClick=onLogout}}} 		 		
 			{{else}}
-				{{{Button class="sign-btn" text="Войти" onClick=onNavigateNext}}}
-				{{{Button class="sign-btn" text="Зарегистрироваться" onClick=onNavigateSignUp}}}		
+				{{{Button class="sign-btn general__btn" text="Войти" onClick=onNavigateNext}}}
+				{{{Button class="sign-btn general__btn" text="Зарегистрироваться" onClick=onNavigateSignUp}}}		
 			{{/if}}
       </div>
     </div>

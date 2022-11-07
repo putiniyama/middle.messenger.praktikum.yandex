@@ -2,7 +2,7 @@
 
 .error {
   width: 90%;
-  height: 12px;
+  height: fit-content;
   color: var(--errorcolor);
   font-size: 9px;
   text-align: center;

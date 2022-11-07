@@ -11,13 +11,15 @@
   }
 
   &__wrapper {
+    border-radius: 20px;
     display: flex;
     width: 300px;
     height: 530px;
     flex-flow: column wrap;
     align-items: center;
     justify-content: center;
-    background-color: var(--backwrapper);
+    background-color: var(--bgmodalcolor);
+    gap: 10px;
   }
 
   &__title {

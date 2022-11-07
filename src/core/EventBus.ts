@@ -23,6 +23,7 @@ export default class EventBus<
       (listener) => listener !== callback,
     );
   }
+	
 
   emit(event: E, ...args: M[E]) {
     if (!this.listeners[event]) {

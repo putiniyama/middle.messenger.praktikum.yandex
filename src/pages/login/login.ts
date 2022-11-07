@@ -55,7 +55,11 @@ export class LoginPageN extends Block<LoginPageProps> {
 				Object.assign(loginData, res)
 			})
 
-			this.props.store.dispatch(login, loginData)
+			try {
+				this.props.store.dispatch(login, loginData)
+			} catch (error) {
+				console.log(error)
+			}
 		}
 	}
 
@@ -70,7 +74,7 @@ export class LoginPageN extends Block<LoginPageProps> {
     <div class="authorization">
       <div class="authorization__wrapper">
 			<h1 class='authorization__title'>Авторизация</h1>
-			<form action='#' class='authorization__form'>
+			<form action='#' class='authorization__form' onsubmit=onLogin>
 				{{{ControlledInput 
 					class-controled="controlled-input"
 					class="input"
@@ -93,10 +97,9 @@ export class LoginPageN extends Block<LoginPageProps> {
 					placeholder="Пароль"
 					error="${err ? err : ''}"
 				}}}
-				{{{Button class="sign-btn" text="Войти" onClick=onLogin}}}
+				{{{Button class="general__btn sign-btn" text="Войти" onClick=onLogin}}}
 			</form>
-			
-			{{{Button class="sign-btn" text="Зарегистрироваться" onClick=onNavigateSignUp}}}
+			{{{Button class="general__btn sign-btn" text="Зарегистрироваться" onClick=onNavigateSignUp}}}
       </div>
     </div>
     `

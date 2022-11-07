@@ -1,8 +1,15 @@
 :root {
-	--fontcolor: #000;
-	--backcolorbtn: #d9d9d9;
-	--backcolorbtn-hover: #252525;
-	--backwrapper: #c690c3;
-	--errorcolor: rgb(241 18 18 / 80%);
-	--backitemcolor-hover: #ddd;
+  --fontcolor: #000;
+  --fontcolorwhite: #ddd;
+  --backcolorbtn: #d9d9d9;
+  --backcolorbtn-hover: #252525;
+  --backwrapper: #c690c3;
+  --errorcolor: rgb(241 18 18 / 80%);
+  --backitemcolor-hover: #ddd;
+  --bacbtncolor: #336af8;
+  --bgcolor: #dde5fa;
+  --placefontcolor: #adadad;
+  --bgmodalcolor: #f3c0c0;
+  --bginputcolor: #d9d9d9;
+  --bgmessagecolor: #9fbaff;
 }

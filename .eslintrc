@@ -1,7 +1,6 @@
 {
-	"extends": "airbnb",
-	"rules": {
-		"max-len": [2, 100],
-		"max-params": [2, 3]
-	}
+	"extends": [
+    "stylelint-config-standard-scss",
+    "stylelint-config-prettier-scss"
+  ]	
 }

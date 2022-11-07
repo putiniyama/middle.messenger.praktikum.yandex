@@ -39,8 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	window.router = router
 	window.store = store
 
-	//console.log(router, store)
-
 	renderDOM(new SplashScreen({}))
 
 	store.on('changed', (prevState, nextState) => {

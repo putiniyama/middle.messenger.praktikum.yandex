@@ -14,7 +14,8 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    background-color: var(--backwrapper);
+    background-color: var(--bgmodalcolor);
+    border-radius: 20px;
   }
 
   &__title {
@@ -30,6 +31,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 10px;
   }
 
   a {
