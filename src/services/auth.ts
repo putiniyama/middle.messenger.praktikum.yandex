@@ -1,7 +1,7 @@
-import { authAPI } from 'api/auth'
-import { UserDTO } from 'api/types'
-import type { Dispatch } from 'core'
-import { transformUser, apiHasError } from 'utils'
+import { authAPI } from '../api/auth'
+import { UserDTO } from '../api/types'
+import type { Dispatch } from '../core/index'
+import { transformUser, apiHasError } from '../utils/index'
 
 type LoginPayload = {
 	login: string

@@ -1,12 +1,11 @@
-/* stylelint-disable string-quotes */
-@import '../../variables.css';
+@import "../../variables.css";
 
 .general {
   &__item {
     position: relative;
     display: flex;
     height: 70px;
-    background-color: var(--bgcolor);
+    background-color: var(--backcolorbtn);
     border-radius: 20px;
     cursor: pointer;
     padding: 12px;
@@ -120,7 +119,7 @@
     width: 34px;
     height: 34px;
     background-color: #fff;
-    background-image: url('../../icons/dots.svg');
+    background-image: url("../../assets/icons/dots.svg");
     cursor: pointer;
     border: none;
     outline: none;

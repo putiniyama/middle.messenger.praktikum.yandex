@@ -1,12 +1,17 @@
-import { withStore, withRouter } from 'utils'
-import { CoreRouter, Store, Block } from 'core'
-import { validAllForm } from 'helpers/validAllForm'
-import { changeProfile, changeAvatar } from 'services/auth'
+import { withStore, withRouter } from '../../utils/index'
+import { CoreRouter, Store, Block } from '../../core/index'
+import { validAllForm } from '../../helpers/validAllForm'
+import { changeProfile, changeAvatar } from '../../services/auth'
+
+import "./profile.css"
 
 type ProfilePageProps = {
 	router: CoreRouter
 	store: Store<AppState>
 	onSubmit: () => any
+	onSetAvatar: () => any
+	onChangePassword: () => any
+	onChat: () => any
 }
 export class ProfilePageN extends Block<ProfilePageProps> {
 	static componentName = 'ProfilePage'
@@ -14,10 +19,6 @@ export class ProfilePageN extends Block<ProfilePageProps> {
 		super(props)
 
 		this.setProps({
-			error: '',
-			loginValue: '',
-			passwordValue: '',
-			classItem: 'input',
 			onSubmit: () => {
 				event?.preventDefault()
 				const inputs = document.querySelectorAll('input')
@@ -32,10 +33,14 @@ export class ProfilePageN extends Block<ProfilePageProps> {
 				}
 				let res: {}
 				let isValid = validAllForm(inputs, this)
-				if (this.refs.buttonRef.props.text === 'Изменить данные') {
-					this.refs.buttonRef.setProps({ text: 'Сохранить данные' })
-					this.refs.buttonPassRef.element.style.display = 'none'
-					this.refs.buttonChatRef.element.style.display = 'none'
+				
+				let changeDataBtn = <HTMLButtonElement>this.element?.querySelector('[name=data-change]')
+				let changePassBtn =  <HTMLButtonElement>this.element?.querySelector('[name=password-change]')
+				let chatBtn =  <HTMLButtonElement>this.element?.querySelector('[name=profile-chat]')
+				if (changeDataBtn.textContent === 'Изменить данные') {
+					changeDataBtn.textContent = 'Сохранить данные'
+					changePassBtn.style.display = 'none'
+					chatBtn.style.display = 'none'
 				} else {
 					if (isValid) {
 						inputs.forEach(item => {
@@ -45,8 +50,8 @@ export class ProfilePageN extends Block<ProfilePageProps> {
 							}
 							Object.assign(profileData, res)
 						})
-						this.refs.buttonPassRef.element.style.display = 'block'
-						this.refs.buttonChatRef.element.style.display = 'block'
+						changePassBtn.style.display = 'block'
+						chatBtn.style.display = 'block'
 						try {
 							this.props.store.dispatch(changeProfile, profileData)
 						} catch (err) {
@@ -178,14 +183,3 @@ export class ProfilePageN extends Block<ProfilePageProps> {
 
 const ProfilePage = withRouter(withStore(ProfilePageN))
 export { ProfilePage }
-
-
-// <form action='#' class="profile__items" id="form1" onsubmit="onSubmit()">
-							
-
-							
-							
-							
-							
-// 					</form>
-           

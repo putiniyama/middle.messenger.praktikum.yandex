@@ -1,5 +1,5 @@
 import { APIError, UserDTO } from './types'
-import HTTPTransport from 'core/apiRequest'
+import HTTPTransport from '../core/apiRequest'
 
 type LoginRequestData = {
 	login: string
@@ -45,7 +45,6 @@ type LoginResponseData = {} | APIError
 type SignupResponseData = {} | APIError
 type ChahgeProfileResponseData = {} | APIError
 type ChahgePasswordResponseData = [] | APIError
-type ChatAddResponseData = [{}] | APIError
 type ChatIdResponseData = [{}] | APIError
 
 export const authAPI = {

@@ -1,7 +1,8 @@
-import { withStore, withRouter } from 'utils'
-import { CoreRouter, Store, Block } from 'core'
-import { validAllForm } from 'helpers/validAllForm'
-import { changePassword } from 'services/auth'
+import { withStore, withRouter } from '../../utils/'
+import { CoreRouter, Store, Block } from '../../core'
+import { validAllForm } from '../../helpers/validAllForm'
+import { changePassword } from '../../services/auth'
+
 
 type PasswordPageProps = {
 	router: CoreRouter

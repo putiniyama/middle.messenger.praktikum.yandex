@@ -1,12 +1,12 @@
-import cloneDeep from 'utils/cloneDeep'
-import { CoreRouter, Store, Block } from 'core'
-import { withStore, withRouter, withChats } from 'utils'
+import cloneDeep from '../../utils/cloneDeep'
+import { CoreRouter, Store, Block } from '../../core/index'
+import { withStore } from '../../utils/index'
 
 interface ChatListProps {
 	router: CoreRouter
 	store: Store<AppState>
 	title: string
-	text: string
+	text: string			
 	id: number
 	chatsList?: () => any
 	onClick: () => any

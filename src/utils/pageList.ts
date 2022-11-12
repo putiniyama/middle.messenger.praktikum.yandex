@@ -1,10 +1,10 @@
-import OnboardingPage from 'pages/onboarding'
-import LoginPage from 'pages/login'
-import ProfilePage from 'pages/profile'
+import OnboardingPage from '../pages/onboarding/index'
+import LoginPage from '../pages/login/index'
+import ProfilePage from '../pages/profile/index'
 import { BlockClass } from 'core'
-import { SignUpPage } from 'pages/signup/signup'
-import { ChatsPage } from 'pages/chats/chats'
-import { PasswordPage } from 'pages/password-change/password-change'
+import SignUpPage from '../pages/signup/index'
+import ChatsPage from '../pages/chats/index'
+import PasswordPage from '../pages/password-change/'
 
 export enum Pages {
 	Onboarding = 'onboarding',

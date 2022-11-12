@@ -1,7 +1,9 @@
-import { withStore, withRouter } from 'utils'
-import { CoreRouter, Store, Block } from 'core'
-import { logout } from 'services/auth'
+import { withStore, withRouter } from '../../utils/index'
+import { CoreRouter, Store, Block } from '../../core/index'
+import { logout } from '../../services/auth'
 import { authAPI } from 'api/auth'
+
+import "../login/login.css"
 
 type OnboardingPageProps = {
 	router: CoreRouter

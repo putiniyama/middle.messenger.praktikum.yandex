@@ -1,4 +1,4 @@
-import { BlockClass, Store } from 'core'
+import { BlockClass} from 'core'
 
 type WithChatsProps = { chats: Chats | null }
 

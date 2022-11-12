@@ -1,8 +1,9 @@
-import { withStore, withRouter } from 'utils'
+import { withStore, withRouter } from '../../utils'
 //import { chatsPage } from '../../index'
-import { CoreRouter, Store, Block } from 'core'
-import { validAllForm } from 'helpers/validAllForm'
-import { signup } from 'services/auth'
+import { CoreRouter, Store, Block } from '../../core'
+import { validAllForm } from '../../helpers/validAllForm'
+import { signup } from '../../services/auth'
+import "./signup.css"
 
 type SignupPageProps = {
 	router: CoreRouter

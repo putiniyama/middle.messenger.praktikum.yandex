@@ -12,8 +12,13 @@
 		"strict": true,
 		"noImplicitAny": true,
 		"strictNullChecks": true,
-		"noUnusedLocals": true,
-		"noUnusedParameters": true,
-		"skipLibCheck": true
+		"skipLibCheck": true,
+		"moduleResolution": "node",
+		"noUnusedLocals": false,
+    "noUnusedParameters": false,
 	}
 }
+
+
+  
+    
