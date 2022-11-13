@@ -3,8 +3,10 @@
 	"version": "1.0.0",
 	"scripts": {
 		"test": "echo \"Тестирование...\"",
+		"start": "npm run build && node server.js",
 		"serve": "webpack serve --mode=development --progress",
-		"build": "webpack",
+		"build": "webpack --mode=none",
+		"dev": "webpack --mode=development",
 		"build:prod": "webpack --config webpack.config.prod.js",
 		"eslint": "eslint src/**/*.ts --fix",
 		"stylelint": "stylelint src/**/*.css --fix",
