@@ -19,7 +19,7 @@
 
 - `npm run serve` — запуск версии на 3000 порту,
 - `npm run build` — сборка стабильной версии.
-- `npm run build:prod` — сборка production версии.
+
 
 ### Разработка
 
@@ -27,4 +27,4 @@
 
 ### Хостинг
 
-https://lovely-starburst-08e7a1.netlify.app/
+https://my-chat-39.herokuapp.com/
