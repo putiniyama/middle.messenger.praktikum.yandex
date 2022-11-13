@@ -2,12 +2,13 @@
 	"name": "sprint-4",
 	"version": "1.0.0",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1",
+		"test": "echo \"Тестирование...\"",
 		"serve": "webpack serve --mode=development --progress",
 		"build": "webpack",
 		"build:prod": "webpack --config webpack.config.prod.js",
 		"eslint": "eslint src/**/*.ts --fix",
-		"stylelint": "stylelint src/**/*.css --fix"
+		"stylelint": "stylelint src/**/*.css --fix",
+		"prepare": "husky install"
 	},
 	"alias": {},
 	"keywords": [],
@@ -43,7 +44,7 @@
 		"handlebars-loader": "1.7.2",
 		"html-loader": "4.2.0",
 		"html-webpack-plugin": "5.5.0",
-		"husky": "^8.0.2",
+		"husky": "8.0.2",
 		"mini-css-extract-plugin": "2.6.1",
 		"mocha": "10.1.0",
 		"node-sass": "8.0.0",
