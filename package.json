@@ -3,7 +3,7 @@
 	"version": "1.0.0",
 	"scripts": {
 		"test": "echo \"Тестирование...\"",
-		"start": "npm run serve && node server.js",
+		"start": "npm run build && node server.js",
 		"serve": "webpack serve --mode=development --progress",
 		"build": "webpack --mode=none",
 		"dev": "webpack --mode=development",
