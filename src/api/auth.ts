@@ -1,4 +1,5 @@
-import { APIError, UserDTO } from './types'
+import {APIError } from './types'
+import {UserDTO} from './types'
 import HTTPTransport from '../core/apiRequest'
 
 type LoginRequestData = {
@@ -96,6 +97,6 @@ export const authAPI = {
 		new HTTPTransport().delete('chats/users', { data })
 	},
 
-	chatGetToken: (data: ChatIdRequestData | Number) =>
+	chatGetToken: (data: ChatIdRequestData | number) =>
 		new HTTPTransport().post(`chats/token/${data}`),
 }

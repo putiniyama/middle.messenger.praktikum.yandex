@@ -2,7 +2,7 @@ import { refErrors } from './refErrors'
 import { onEvents } from './events'
 
 export function validAllForm(inputs: any, context: any) {
-	let errors: null[] = []
+	const errors: null[] = []
 
 	for (let i = 0; i < inputs.length; i++) {
 		const inputEl = <HTMLInputElement>inputs[i]

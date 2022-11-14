@@ -26,7 +26,7 @@ export function validateForm(rules: ValidateRule[]) {
 	}
 
 	function checkLogin(value: string): boolean {
-		if (/^[A-z]([0-9A-z\-\_]){2,19}$/g.test(value)) {
+		if (/^[A-z]([0-9A-z\-\\_]){2,19}$/g.test(value)) {
 			return true
 		} else {
 			return false
@@ -42,7 +42,7 @@ export function validateForm(rules: ValidateRule[]) {
 	}
 
 	function checkName(value: string): boolean {
-		if (/(^[A-ZА-Я])+([A-zА-я\-])*$/g.test(value)) {
+		if (/(^[A-ZА-Я])+([A-zА-я\\-])*$/g.test(value)) {
 			return true
 		} else {
 			return false
