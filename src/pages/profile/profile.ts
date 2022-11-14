@@ -3,7 +3,7 @@ import { CoreRouter, Store, Block } from '../../core/index'
 import { validAllForm } from '../../helpers/validAllForm'
 import { changeProfile, changeAvatar } from '../../services/auth'
 
-import "./profile.css"
+import './profile.css'
 
 type ProfilePageProps = {
 	router: CoreRouter

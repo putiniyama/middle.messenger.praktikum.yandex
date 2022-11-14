@@ -43,12 +43,13 @@ export default class HTTPTransport {
 	request(url: string, options: Options): any {
 		const { method, data, title } = options
 		return new Promise((resolve, reject): any => {
+			console.log(data)
 			const xhr = new XMLHttpRequest()
 			url = path + url
 			xhr.open(method, url)
 			xhr.onload = function () {
 				resolve(xhr.response)
-				//console.log(xhr.response)
+				console.log(xhr.response)
 			}
 
 			xhr.onabort = reject
