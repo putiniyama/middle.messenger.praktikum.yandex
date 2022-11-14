@@ -29,4 +29,5 @@
 
 ### Хостинг
 
-https://my-chat-39.herokuapp.com/
+Проект с Docker-сборкой размещен на https://my-chat-39.herokuapp.com/
+Для его раработы **возможно понадобится VPN**
