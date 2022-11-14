@@ -17,7 +17,7 @@
 
 ### Установка
 
-- `npm run build:serve` — запуск версии для разработчика на 3000 порту,
+- `npm run build:serve` — запуск версии для разработчика на http://localhost:3000/,
 - `npm run build:dev` — сборка версии для разработчика,
 - `npm run build:production` — сборка production версии,
 - `npm run start` — сборка и запуск на 3000 для докера и хероку
