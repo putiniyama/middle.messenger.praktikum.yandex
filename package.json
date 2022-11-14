@@ -10,18 +10,13 @@
 		"build:prod": "webpack --mode=production",
 		"eslint": "eslint src/**/*.ts --fix",
 		"stylelint": "stylelint src/**/*.css --fix",
-		"prepare": "husky install"
+		"precommit": "npm run test",
+		"prepush": "npm run test"
 	},
 	"alias": {},
 	"keywords": [],
 	"author": "",
 	"license": "MIT",
-	"husky": {
-		"hooks": {
-			"pre-commit": "npm-run-all test lint:all",
-      "pre-push": "npm run other command"
-		}
-	},
 	"devDependencies": {
 		"@anikin/parcel-transformer-handlebars": "1.0.9",
 		"@babel/eslint-parser": "^7.19.1",
