@@ -18,7 +18,7 @@
 	"license": "MIT",
 	"husky": {
 		"hooks": {
-			"pre-commit": "npm-run-all test lint:all",
+			"pre-commit": "npm run stylelint && npm run eslint",
 			"pre-push": "npm run other command"
 		}
 	},
