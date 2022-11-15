@@ -3,14 +3,16 @@
 	"version": "1.0.0",
 	"scripts": {
 		"test": "jest",
-		"start": "npm run build && node server.js",
+		"start": "npm run build:prod && node server.js",
 		"build:serve": "webpack serve --mode=development --progress",
-		"build": "webpack",
+		"build": "webpack --mode=none",
 		"build:dev": "webpack --mode=development",
 		"build:prod": "webpack --mode=production",
 		"eslint": "eslint src/**/*.ts --fix",
 		"stylelint": "stylelint src/**/*.css --fix",
-		"prepare": "husky install"
+		"prepare": "husky install",
+		"docker": "docker build -t chat .",
+		"docker:run": "docker run -d -p 3000:3000 chat"
 	},
 	"alias": {},
 	"keywords": [],
