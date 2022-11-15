@@ -96,7 +96,7 @@ export class ProfilePageN extends Block<ProfilePageProps> {
 					<img src="${avatar}" alt="avatar" class="profile__photo" ></img>
 				</label>
 
-				<div class="profile__name">Алексей</div>
+				<div class="profile__name">${user?.firstName}</div>
 				<form action='#' class="profile__settings">
 					<div class="profile__title">Данные</div>
 				<div  class='profile__items' >
