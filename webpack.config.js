@@ -38,6 +38,10 @@ module.exports = {
         test: /\.tsx?$/,
         loader: 'ts-loader',
       },
+			{ 
+				test: /\.handlebars$/, 
+				loader: "handlebars-loader" 
+			},
       {
         test: /\.(sa|sc|c)ss$/,
         use: [
