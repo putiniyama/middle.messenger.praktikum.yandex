@@ -8,21 +8,21 @@ interface ChatListProps {
 	title: string
 	text: string			
 	id: number
+	avatar: string
 	chatsList?: () => any
-	onClick: () => any
+	onClick?: () => any
+	events: Indexed;
 }
 
-export class ChatListN extends Block {
+export class ChatListN extends Block<ChatListProps> {
 	static componentName = 'ChatList'
 
 	constructor({ onClick, ...props }: ChatListProps) {
-		super({
-			...props,
-			events: { click: onClick },
-		})
+		super(props)
 
 		this.setProps({
 			chatsList: () => cloneDeep(this.props.store.getState().chats!),
+			events: { click: onClick },
 		})
 	}
 
@@ -30,7 +30,7 @@ export class ChatListN extends Block {
 		return `
       <ul class="general__items">
 				{{#each chatsList}}
-						{{{Chat id=id text="" title=title }}}
+						{{{Chat id=id text="" title=title src=avatar}}}
 				{{/each}}
 			</ul>
     `

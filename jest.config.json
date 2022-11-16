@@ -1,0 +1,13 @@
+{
+		"testEnvironment": "jsdom",
+		"setupFiles": [
+			"<rootDir>/src/tests/setupEnv.ts"
+		],
+		"setupFilesAfterEnv": [
+			"<rootDir>/src/tests/setup.ts"
+		],
+		"moduleNameMapper": {
+			"\\.(css)$": "identity-obj-proxy"
+		}
+
+}

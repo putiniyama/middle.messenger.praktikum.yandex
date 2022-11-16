@@ -326,6 +326,8 @@ export class ChatsPageN extends Block<ChatsPageProps> {
 						{{{Button class="general__btn" text="Удалить пользователя" onClick=onDeleteUserFromChat}}}	
 						{{{Button class="general__btn" onClick=onCancel text="Отмена"}}}
 				</div>
+
+		
 			</div>
 		`
 	}

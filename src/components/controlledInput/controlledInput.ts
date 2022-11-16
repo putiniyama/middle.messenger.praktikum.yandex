@@ -12,9 +12,12 @@ interface ControlledInputProps {
 	label?: string
 	class?: string[]
 	active?: boolean
+	onBlur?: (e: FocusEvent) => void
+	onFocus?: (e: FocusEvent) => void
+	onInput?: (e: InputEvent) => void
 }
 
-export class ControlledInput extends Block {
+export class ControlledInput extends Block<ControlledInputProps> {
 	static componentName = 'ControlledInput'
 
 	constructor(props: ControlledInputProps) {
