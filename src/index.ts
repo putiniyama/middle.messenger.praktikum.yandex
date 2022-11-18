@@ -1,15 +1,16 @@
+
 import {
 	renderDOM,
 	registerComponent,
 	PathRouter,
 	CoreRouter,
 	Store,
-} from 'core'
+} from './core'
 
 import { initApp } from './services/initApp'
 import { defaultState } from './store'
 import { initRouter } from './router'
-import SplashScreen from 'pages/splash'
+import SplashScreen from './pages/splash'
 
 import './app.css'
 
@@ -41,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	renderDOM(new SplashScreen({}))
 
-	store.on('changed', (prevState, nextState) => {
+	store.on('changed', (nextState) => {
 		if (process.env.DEBUG) {
 			console.log(
 				'%cstore updated',

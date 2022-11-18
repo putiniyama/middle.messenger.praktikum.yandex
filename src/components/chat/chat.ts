@@ -5,18 +5,19 @@ interface ChatProps {
 	title: string
 	text: string
 	id: number
+	avatar: string
 }
 
-export class Chat extends Block {
+export class Chat extends Block<ChatProps> {
 	static componentName = 'Chat'
 	constructor(props: ChatProps) {
 		super({ ...props })
 	}
 
+
 	protected render(): string {
 		return `
 			<li class="general__item" id={{id}} >
-					<img src="https://klike.net/uploads/posts/2019-03/1551511801_1.jpg" alt="photo" class="general__item-avatar">
 					<div class="general__item-info">
 							<p class="general__item-title">{{title}}</p>
 							<p class="general__item-text">Последнее сообщение</p>

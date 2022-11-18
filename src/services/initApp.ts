@@ -1,7 +1,7 @@
-import { authAPI } from 'api/auth'
-import { UserDTO } from 'api/types'
-import type { Dispatch } from 'core'
-import { transformUser, apiHasError } from 'utils'
+import { authAPI } from '../api/auth'
+import { UserDTO } from '../api/types'
+import type { Dispatch } from '../core'
+import { transformUser, apiHasError } from '../utils/index'
 
 export async function initApp(dispatch: Dispatch<AppState>) {
 	// Ручкая задержка для демонстрации загрузочного экрана

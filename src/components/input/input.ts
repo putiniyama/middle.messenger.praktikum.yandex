@@ -12,9 +12,10 @@ interface InputProps {
 	value?: string
 	class?: string
 	active?: boolean
+	events: Indexed;
 }
 
-export class Input extends Block {
+export class Input extends Block<InputProps> {
 	static componentName = 'Input'
 	constructor({ onBlur, onInput, onFocus, ...props }: InputProps) {
 		super({

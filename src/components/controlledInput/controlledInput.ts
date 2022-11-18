@@ -1,5 +1,5 @@
-import Block from 'core/Block'
-import { onEvents } from 'helpers/events'
+import { Block } from '../../core/index'
+import { onEvents } from '../../helpers/events'
 
 import './controlledInput.css'
 
@@ -12,9 +12,12 @@ interface ControlledInputProps {
 	label?: string
 	class?: string[]
 	active?: boolean
+	onBlur?: (e: FocusEvent) => void
+	onFocus?: (e: FocusEvent) => void
+	onInput?: (e: InputEvent) => void
 }
 
-export class ControlledInput extends Block {
+export class ControlledInput extends Block<ControlledInputProps> {
 	static componentName = 'ControlledInput'
 
 	constructor(props: ControlledInputProps) {
@@ -24,21 +27,24 @@ export class ControlledInput extends Block {
 				const inputEl = <HTMLInputElement>e.target
 				const inputName = <string>inputEl.getAttribute('name')
 				const error = onEvents(inputEl, inputName)
-				this.refs.errorRef.setProps({ text: error })
+				const errorText = <any>this.element!.querySelector('.error') 
+				errorText.textContent = error;
 			},
 
 			onFocus: (e: FocusEvent) => {
 				const inputEl = <HTMLInputElement>e.target
 				const inputName = <string>inputEl.getAttribute('name')
 				const error = onEvents(inputEl, inputName)
-				this.refs.errorRef.setProps({ text: error })
+				const errorText = <any>this.element!.querySelector('.error') 
+				errorText.textContent = error;
 			},
 
 			onInput: (e: InputEvent) => {
 				const inputEl = <HTMLInputElement>e.target
 				const inputName = <string>inputEl.getAttribute('name')
 				const error = onEvents(inputEl, inputName)
-				this.refs.errorRef.setProps({ text: error })
+				const errorText = <any>this.element!.querySelector('.error') 
+				errorText.textContent = error;
 			},
 		})
 	}

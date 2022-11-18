@@ -1,8 +1,10 @@
-import { withStore, withRouter } from 'utils'
-import { login } from 'services/auth'
-import { CoreRouter, Store, Block } from 'core'
-import { validAllForm } from 'helpers/validAllForm'
+import { withStore, withRouter } from '../../utils/index'
+import { login } from '../../services/auth'
+import { CoreRouter, Store, Block } from '../../core/index'
+import { validAllForm } from '../../helpers/validAllForm'
 import { authAPI } from 'api/auth'
+
+import "./login.css"
 
 type LoginPageProps = {
 	router: CoreRouter

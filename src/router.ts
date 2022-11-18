@@ -1,4 +1,4 @@
-import { Store, renderDOM, CoreRouter } from 'core'
+import { Store, renderDOM, CoreRouter } from './core'
 import { getScreenComponent, Pages } from './utils'
 
 const routes = [

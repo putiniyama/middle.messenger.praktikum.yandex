@@ -1,5 +1,9 @@
 @import "../../variables.css";
 
+* {
+  box-sizing: border-box;
+}
+
 .authorization {
   display: flex;
   height: 100vh;

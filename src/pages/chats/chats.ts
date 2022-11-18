@@ -1,10 +1,10 @@
 import input from 'components/input'
 import chat from 'components/chat'
 import { validateForm, ValidateType } from '../../helpers/validateForm'
-import { refErrors } from 'helpers/refErrors'
-import { onEvents } from 'helpers/events'
-import { withStore, withRouter, withChats } from 'utils'
-import { CoreRouter, Store, Block } from 'core'
+import { refErrors } from '../../helpers/refErrors'
+import { onEvents } from '../../helpers/events'
+import { withStore, withRouter, withChats } from '../../utils/'
+import { CoreRouter, Store, Block } from '../../core'
 import {
 	chatAdd,
 	chatAddUser,
@@ -13,9 +13,11 @@ import {
 	chatGetUser,
 	chatGetToken,
 	chats,
-} from 'services/auth'
-import cloneDeep from 'utils/cloneDeep'
-import { authAPI } from 'api/auth'
+} from '../../services/auth'
+import cloneDeep from '../../utils/cloneDeep'
+import { authAPI } from '../../api/auth'
+
+import "./chats.css"
 
 type ChatsPageProps = {
 	router: CoreRouter
@@ -97,7 +99,7 @@ export class ChatsPageN extends Block<ChatsPageProps> {
 						this.props.store.dispatch({ isLoading: true })
 					})
 
-					this.state.socket.addEventListener('message', event => {
+					this.state.socket.addEventListener('message', (event: { data: string }) => {
 						try {
 							this.state.messages = JSON.parse(event.data)
 						} catch (error) {
@@ -113,8 +115,8 @@ export class ChatsPageN extends Block<ChatsPageProps> {
 			},
 
 			onAddChat: () => {
-				const btnAddChat = this.element!.querySelector('.general__addchat-btn')
-				const addChatModal = this.element!.querySelector('.general__addchat')
+				const btnAddChat = <HTMLButtonElement>this.element!.querySelector('.general__addchat-btn')
+				const addChatModal = <HTMLFormElement>this.element!.querySelector('.general__addchat')
 
 				btnAddChat!.addEventListener('click', () => {
 					addChatModal!.style.display = 'flex'
@@ -123,14 +125,14 @@ export class ChatsPageN extends Block<ChatsPageProps> {
 			},
 
 			onCancel: () => {
-				const addChatModal = this.element!.querySelector('.general__addchat')
-				const dotsModal = this.element!.querySelector('.general__chatdots')
+				const addChatModal = <HTMLFormElement>this.element!.querySelector('.general__addchat')
+				const dotsModal = <HTMLDivElement>this.element!.querySelector('.general__chatdots')
 					addChatModal!.style.display = 'none'
 					dotsModal!.style.display = 'none'
 			},
 
 			onDots: () => {
-				const dotsModal = this.element!.querySelector('.general__chatdots')
+				const dotsModal = <HTMLDivElement>this.element!.querySelector('.general__chatdots')
 				dotsModal!.style.display = 'flex'
 			},
 
@@ -226,11 +228,11 @@ export class ChatsPageN extends Block<ChatsPageProps> {
 					}
 					this.setState(nextState)
 					this.state.errorChatTitle = ''
-					const addChatModal = this.element!.querySelector('.general__addchat')
+					const addChatModal = <HTMLFormElement>this.element!.querySelector('.general__addchat')
 					addChatModal!.style.display = 'none'
 				} else {
 					this.state.errorChatTitle = 'ВВедите имя чата'
-					const addChatModal = this.element!.querySelector('.general__addchat')
+					const addChatModal = <HTMLFormElement>this.element!.querySelector('.general__addchat')
 					addChatModal!.style.display = 'flex'
 				}
 					
@@ -324,6 +326,8 @@ export class ChatsPageN extends Block<ChatsPageProps> {
 						{{{Button class="general__btn" text="Удалить пользователя" onClick=onDeleteUserFromChat}}}	
 						{{{Button class="general__btn" onClick=onCancel text="Отмена"}}}
 				</div>
+
+		
 			</div>
 		`
 	}
